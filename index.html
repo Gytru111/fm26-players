@@ -7,661 +7,656 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: #0f1117;
-  color: #e1e4e8;
-  padding: 16px;
-  min-height: 100vh;
-}
-.container { max-width: 1500px; margin: 0 auto; }
-
-/* HEADER */
-header {
-  margin-bottom: 20px;
-  padding: 20px 24px;
-  background: #161b22;
-  border-radius: 12px;
-  border: 1px solid #30363d;
-}
-header h1 { font-size: 26px; font-weight: 700; color: #f0f6fc; }
-header h1 span { color: #58a6ff; }
-header .subtitle { font-size: 14px; color: #8b949e; margin-top: 4px; }
-
-/* NAV */
-.nav-links {
-  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;
-}
-.nav-links a {
-  padding: 8px 16px; background: #161b22; border: 1px solid #30363d;
-  border-radius: 8px; color: #e1e4e8; text-decoration: none;
-  font-size: 13px; font-weight: 500; transition: all .2s;
-}
-.nav-links a:hover { border-color: #58a6ff; background: #1c2128; }
-.nav-links a.danger { color: #f85149; border-color: #f8514933; }
-.nav-links a.danger:hover { border-color: #f85149; }
-
-/* BANNER FMPLAYER */
-.banner {
-  background: linear-gradient(135deg, #1a2332 0%, #161b22 100%);
-  border: 1px solid #30363d; border-radius: 12px;
-  padding: 20px 24px; margin-bottom: 20px;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 16px;
-}
-.banner h2 { font-size: 18px; color: #f0f6fc; }
-.banner p { font-size: 13px; color: #8b949e; }
-.banner a {
-  display: inline-block; padding: 10px 24px;
-  background: #1f6feb; color: #fff; text-decoration: none;
-  border-radius: 8px; font-weight: 600; font-size: 14px;
-  transition: background .2s;
-}
-.banner a:hover { background: #388bfd; }
-
-/* CONTROLS */
-.controls {
-  display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
-  margin-bottom: 16px;
-}
-.search-box { flex: 1; min-width: 200px; position: relative; }
-.search-box input {
-  width: 100%; padding: 10px 16px 10px 40px;
-  background: #161b22; border: 1px solid #30363d;
-  border-radius: 8px; color: #e1e4e8; font-size: 14px;
-  outline: none; transition: border .2s;
-}
-.search-box input:focus { border-color: #58a6ff; }
-.search-box::before {
-  content: '🔍'; position: absolute; left: 12px; top: 50%;
-  transform: translateY(-50%); font-size: 14px;
-}
-.filters { display: flex; gap: 8px; flex-wrap: wrap; }
-.filters select, .filters button {
-  padding: 10px 14px; background: #161b22; border: 1px solid #30363d;
-  border-radius: 8px; color: #e1e4e8; font-size: 13px;
-  cursor: pointer; outline: none; transition: border .2s;
-}
-.filters select:focus, .filters button:hover { border-color: #58a6ff; }
-.filters button.primary { background: #1f6feb; border-color: #1f6feb; font-weight: 600; color: #fff; }
-.filters button.primary:hover { background: #388bfd; }
-
-.stats-bar {
-  display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px;
-  font-size: 13px; color: #8b949e;
-}
-.stats-bar strong { color: #e1e4e8; }
-.stats-bar .badge {
-  display: inline-block; padding: 2px 8px; border-radius: 10px;
-  font-size: 11px; font-weight: 600;
-}
-.badge-wk { background: #1a3a1a; color: #3fb950; }
-.badge-all { background: #1a2332; color: #58a6ff; }
-.badge-boss { background: #3a1a1a; color: #f85149; }
-
-/* TABLE */
-.table-wrap {
-  overflow-x: auto; border-radius: 12px;
-  border: 1px solid #30363d; background: #161b22;
-}
-table {
-  width: 100%; border-collapse: collapse; font-size: 13px;
-  min-width: 950px;
-}
-thead { position: sticky; top: 0; z-index: 2; }
-th {
-  background: #1c2128; padding: 11px 12px;
-  text-align: left; font-weight: 600; font-size: 11px;
-  text-transform: uppercase; letter-spacing: .5px;
-  color: #8b949e; border-bottom: 1px solid #30363d;
-  cursor: pointer; user-select: none; white-space: nowrap;
-}
-th:hover { color: #e1e4e8; }
-th .sort { margin-left: 4px; font-size: 9px; }
-td {
-  padding: 8px 12px; border-bottom: 1px solid #21262d;
-  white-space: nowrap; vertical-align: middle;
-}
-tr:hover td { background: #1c2128; }
-tr:last-child td { border-bottom: none; }
-
-.pos-badge {
-  display: inline-block; padding: 2px 7px; border-radius: 4px;
-  font-size: 10px; font-weight: 600;
-}
-.pos-GK { background: #1a3a4a; color: #58c4e8; }
-.pos-DEF { background: #1a3a1a; color: #5cb85c; }
-.pos-MID { background: #3a2a1a; color: #f0ad4e; }
-.pos-AM { background: #3a1a1a; color: #e05a5a; }
-.pos-ST { background: #2a1a3a; color: #b87ae0; }
-
-.ca-bar, .pa-bar {
-  display: inline-block; height: 5px; border-radius: 3px;
-  margin-right: 5px; vertical-align: middle;
-}
-.ca-bar { background: linear-gradient(90deg, #58a6ff, #1f6feb); }
-.pa-bar { background: linear-gradient(90deg, #3fb950, #2ea043); }
-.rating { font-weight: 700; }
-.flag { font-size: 15px; margin-right: 3px; }
-.value { font-variant-numeric: tabular-nums; }
-
-.wk-tag {
-  display: inline-block; padding: 1px 6px; border-radius: 3px;
-  font-size: 9px; font-weight: 700; background: #1a3a1a; color: #3fb950;
-  margin-left: 4px;
-}
-.bargain-tag {
-  display: inline-block; padding: 1px 6px; border-radius: 3px;
-  font-size: 9px; font-weight: 700; background: #3a2a1a; color: #f0ad4e;
-  margin-left: 4px;
-}
-.hidden-tag {
-  display: inline-block; padding: 1px 6px; border-radius: 3px;
-  font-size: 9px; font-weight: 700; background: #2a1a3a; color: #b87ae0;
-  margin-left: 4px;
-}
-.ca-high { color: #58a6ff; font-weight: 700; }
-.ca-mid { color: #8b949e; }
-.ca-low { color: #484f58; }
-
-a { color: #58a6ff; text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.pagination {
-  display: flex; justify-content: center; align-items: center;
-  gap: 8px; margin-top: 14px;
-}
-.pagination button {
-  padding: 7px 14px; background: #161b22; border: 1px solid #30363d;
-  border-radius: 6px; color: #e1e4e8; cursor: pointer;
-  font-size: 13px; transition: all .2s;
-}
-.pagination button:hover:not(:disabled) { border-color: #58a6ff; }
-.pagination button:disabled { opacity: .4; cursor: default; }
-.pagination .page-info { font-size: 13px; color: #8b949e; }
-
-.no-results {
-  text-align: center; padding: 48px 24px; color: #8b949e;
-}
-
-/* GUIDE */
-.guide {
-  margin-top: 20px;
-  padding: 20px 24px;
-  background: #161b22; border: 1px solid #30363d; border-radius: 12px;
-}
-.guide h2 { font-size: 18px; color: #f0f6fc; margin-bottom: 12px; }
-.guide h3 { font-size: 15px; color: #58a6ff; margin: 16px 0 8px; }
-.guide p, .guide li { font-size: 13px; color: #8b949e; line-height: 1.6; margin-bottom: 6px; }
-.guide ul { padding-left: 20px; }
-.guide .key { color: #3fb950; font-weight: 600; }
-.guide .key-b { color: #f0ad4e; font-weight: 600; }
-.guide code {
-  background: #1c2128; padding: 2px 6px; border-radius: 4px;
-  font-size: 12px; color: #f0ad4e;
-}
-
-footer {
-  margin-top: 24px; text-align: center; font-size: 12px; color: #484f58;
-  padding: 16px;
-}
-footer a { color: #58a6ff; }
-
-@media (max-width: 768px) {
-  body { padding: 10px; }
-  header { padding: 14px; }
-  header h1 { font-size: 20px; }
-  .controls { flex-direction: column; }
-  .search-box { min-width: 100%; }
-  .filters { width: 100%; }
-  .filters select { flex: 1; }
-  .banner { flex-direction: column; text-align: center; }
-}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0f1117;color:#e1e4e8;padding:16px;min-height:100vh}
+.container{max-width:1500px;margin:0 auto}
+header{margin-bottom:20px;padding:20px 24px;background:#161b22;border-radius:12px;border:1px solid #30363d}
+header h1{font-size:26px;font-weight:700;color:#f0f6fc}
+header h1 span{color:#58a6ff}
+header .sub{font-size:14px;color:#8b949e;margin-top:4px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.nav a{padding:8px 16px;background:#161b22;border:1px solid #30363d;border-radius:8px;color:#e1e4e8;text-decoration:none;font-size:13px;font-weight:500;transition:.2s}
+.nav a:hover{border-color:#58a6ff;background:#1c2128}
+.nav a.prim{color:#f85149;border-color:#f8514933}
+.nav a.prim:hover{border-color:#f85149}
+.banner{background:linear-gradient(135deg,#1a2332,#161b22);border:1px solid #30363d;border-radius:12px;padding:20px 24px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.banner h2{font-size:18px;color:#f0f6fc}
+.banner p{font-size:13px;color:#8b949e}
+.banner a{display:inline-block;padding:10px 24px;background:#1f6feb;color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-size:14px}
+.banner a:hover{background:#388bfd}
+.ctrl{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.sbox{flex:1;min-width:200px;position:relative}
+.sbox input{width:100%;padding:10px 16px 10px 40px;background:#161b22;border:1px solid #30363d;border-radius:8px;color:#e1e4e8;font-size:14px;outline:none}
+.sbox input:focus{border-color:#58a6ff}
+.sbox::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px}
+.flt{display:flex;gap:8px;flex-wrap:wrap}
+.flt select,.flt button{padding:10px 14px;background:#161b22;border:1px solid #30363d;border-radius:8px;color:#e1e4e8;font-size:13px;cursor:pointer;outline:none}
+.flt select:focus,.flt button:hover{border-color:#58a6ff}
+.flt button.pri{background:#1f6feb;border-color:#1f6feb;font-weight:600;color:#fff}
+.stats{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px;font-size:13px;color:#8b949e}
+.stats strong{color:#e1e4e8}
+.stats .bd{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.bd-wk{background:#1a3a1a;color:#3fb950}
+.bd-bn{background:#3a2a1a;color:#f0ad4e}
+.bd-hd{background:#2a1a3a;color:#b87ae0}
+.bd-el{background:#1a2332;color:#58a6ff}
+.tw{overflow-x:auto;border-radius:12px;border:1px solid #30363d;background:#161b22}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:1000px}
+thead{position:sticky;top:0;z-index:2}
+th{background:#1c2128;padding:10px 10px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#8b949e;border-bottom:1px solid #30363d;cursor:pointer;user-select:none;white-space:nowrap}
+th:hover{color:#e1e4e8}
+th .s{margin-left:4px;font-size:9px}
+td{padding:7px 10px;border-bottom:1px solid #21262d;white-space:nowrap}
+tr:hover td{background:#1c2128}
+tr:last-child td{border-bottom:none}
+.pb{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:600}
+.p-GK{background:#1a3a4a;color:#58c4e8}
+.p-DEF{background:#1a3a1a;color:#5cb85c}
+.p-MID{background:#3a2a1a;color:#f0ad4e}
+.p-AM{background:#3a1a1a;color:#e05a5a}
+.p-ST{background:#2a1a3a;color:#b87ae0}
+.cb,.pb2{display:inline-block;height:5px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.cb{background:linear-gradient(90deg,#58a6ff,#1f6feb)}
+.pb2{background:linear-gradient(90deg,#3fb950,#2ea043)}
+.r{font-weight:700}
+.fl{font-size:15px;margin-right:3px}
+.v{font-variant-numeric:tabular-nums}
+.tg{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:700;margin-left:3px}
+.tg-wk{background:#1a3a1a;color:#3fb950}
+.tg-bn{background:#3a2a1a;color:#f0ad4e}
+.tg-hd{background:#2a1a3a;color:#b87ae0}
+.ch{color:#58a6ff;font-weight:700}
+.cm{color:#8b949e}
+.cl{color:#484f58}
+a{color:#58a6ff;text-decoration:none}
+a:hover{text-decoration:underline}
+.pg{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px}
+.pg button{padding:7px 14px;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#e1e4e8;cursor:pointer;font-size:13px}
+.pg button:hover:not(:disabled){border-color:#58a6ff}
+.pg button:disabled{opacity:.4;cursor:default}
+.pg .pi{font-size:13px;color:#8b949e}
+.nr{text-align:center;padding:48px 24px;color:#8b949e}
+.guide{margin-top:20px;padding:20px 24px;background:#161b22;border:1px solid #30363d;border-radius:12px}
+.guide h2{font-size:18px;color:#f0f6fc;margin-bottom:12px}
+.guide h3{font-size:15px;color:#58a6ff;margin:16px 0 8px}
+.guide p,.guide li{font-size:13px;color:#8b949e;line-height:1.6;margin-bottom:6px}
+.guide ul{padding-left:20px}
+.guide .k{color:#3fb950;font-weight:600}
+.guide .kb{color:#f0ad4e;font-weight:600}
+footer{margin-top:24px;text-align:center;font-size:12px;color:#484f58;padding:16px}
+@media(max-width:768px){body{padding:10px}header{padding:14px}header h1{font-size:20px}.ctrl{flex-direction:column}.sbox{min-width:100%}.flt{width:100%}.flt select{flex:1}.banner{flex-direction:column;text-align:center}}
 </style>
 </head>
 <body>
-<div class="container">
+<div class=container>
 
 <header>
-  <h1>⚽ FM26 <span>Joueurs & Pépites</span></h1>
-  <div class="subtitle">
-    Base complète — 773 313 joueurs disponibles sur
-    <a href="https://fmplayer.net/players" target="_blank">fmplayer.net</a>
-    · Ici : 200+ meilleurs joueurs + pépites cachées
-  </div>
+<h1>⚽ FM26 <span>Joueurs & Pépites</span></h1>
+<div class=sub>Base complète — 773 313 joueurs sur <a href="https://fmplayer.net/players" target=_blank>fmplayer.net</a> · <strong id=totalCount>0</strong> affichés ici</div>
 </header>
 
-<div class="nav-links">
-  <a href="#table">📋 Tableau des joueurs</a>
-  <a href="https://fmplayer.net/players" target="_blank" class="danger">🔥 773k joueurs sur fmplayer.net</a>
-  <a href="https://fmplayer.net/shortlist/fm-26-wonderkids" target="_blank" class="danger">⭐ Wonderkids (fmplayer)</a>
-  <a href="https://sortitoutsi.net/football-manager-2026-wonderkids" target="_blank">🌍 sortitoutsi Wonderkids</a>
-  <a href="https://sortitoutsi.net/football-manager-2026-bargain-players" target="_blank">💰 Bargains (sortitoutsi)</a>
-  <a href="https://efem.club/players" target="_blank">📊 efem.club (500k+)</a>
-  <a href="#guide">📖 Guide pépites</a>
+<div class=nav>
+<a href=https://fmplayer.net/players target=_blank class=prim>🔥 773k joueurs sur fmplayer.net</a>
+<a href=https://fmplayer.net/shortlist/fm-26-wonderkids target=_blank class=prim>⭐ Wonderkids</a>
+<a href=https://sortitoutsi.net/football-manager-2026-wonderkids target=_blank>🌍 sortitoutsi Wonderkids</a>
+<a href=https://sortitoutsi.net/football-manager-2026-bargain-players target=_blank>💰 Bargains</a>
+<a href=https://efem.club/players target=_blank>📊 efem.club (500k+)</a>
+<a href=#guide>📖 Guide</a>
 </div>
 
-<div class="banner">
-  <div>
-    <h2>🔥 Tu veux TOUS les joueurs ?</h2>
-    <p>773 313 joueurs FM26 avec recherche, filtres, CA/PA, valeur, club, nation</p>
-  </div>
-  <a href="https://fmplayer.net/players" target="_blank">Ouvrir fmplayer.net →</a>
+<div class=banner>
+<div><h2>🔥 Accède aux 773 313 joueurs FM26</h2><p>Recherche, filtres, CA/PA, valeur, club, nation — la base complète</p></div>
+<a href=https://fmplayer.net/players target=_blank>Ouvrir fmplayer.net →</a>
 </div>
 
-<div class="controls">
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Rechercher nom, club, nationalité, poste..." oninput="filterTable()">
-  </div>
-  <div class="filters">
-    <select id="posFilter" onchange="filterTable()">
-      <option value="">Tous postes</option>
-      <option value="GK">Gardiens</option>
-      <option value="DEF">Défenseurs</option>
-      <option value="MID">Milieux</option>
-      <option value="AM">Ailiers</option>
-      <option value="ST">Attaquants</option>
-    </select>
-    <select id="catFilter" onchange="filterTable()">
-      <option value="">Toutes catégories</option>
-      <option value="wk">⭐ Wonderkids (≤21 & PA≥175)</option>
-      <option value="bargain">💰 Bonnes affaires (valeur ≤15M)</option>
-      <option value="hidden">💎 Pépites cachées (CA≤150, PA≥170)</option>
-      <option value="elite">👑 Élite (CA≥170)</option>
-    </select>
-    <select id="ageFilter" onchange="filterTable()">
-      <option value="">Tous âges</option>
-      <option value="16-18">16-18 ans (futur)</option>
-      <option value="16-21">16-21 ans (wonderkids)</option>
-      <option value="22-27">22-27 ans (peak)</option>
-      <option value="28-99">28+ ans (vétérans)</option>
-    </select>
-    <button class="primary" onclick="resetFilters()">Réinitialiser</button>
-  </div>
+<div class=ctrl>
+<div class=sbox><input id=srch placeholder="Rechercher nom, club, nation, poste..." oninput=f()></div>
+<div class=flt>
+<select id=pf onchange=f()><option value=>Tous postes</option><option value=GK>Gardiens</option><option value=DEF>Défenseurs</option><option value=MID>Milieux</option><option value=AM>Ailiers</option><option value=ST>Attaquants</option></select>
+<select id=cf onchange=f()><option value=>Toutes catégories</option><option value=wk>⭐ Wonderkids (≤21 PA≥175)</option><option value=bn>💰 Bonnes affaires (valeur ≤10M)</option><option value=hd>💎 Pépites cachées (CA≤145 PA≥170)</option><option value=el>👑 Élite (CA≥170)</option></select>
+<select id=af onchange=f()><option value=>Tous âges</option><option value=16-18>16-18 ans</option><option value=16-21>16-21 ans (wonderkids)</option><option value=22-27>22-27 ans (peak)</option><option value=28-99>28+ ans</option></select>
+<button class=pri onclick="srch.value='';pf.value='';cf.value='';af.value='';f()">Réinit</button>
+</div>
 </div>
 
-<div class="stats-bar">
-  <span><strong id="totalCount">0</strong> joueurs affichés</span>
-  <span>·</span>
-  <span><span class="badge badge-wk">⭐ Wonderkid</span> ≤21ans PA≥175</span>
-  <span><span class="badge badge-boss">💰 Bargain</span> valeur ≤15M</span>
-  <span><span class="badge badge-all">💎 Pépite</span> CA≤150 PA≥170</span>
+<div class=stats>
+<span class="bd bd-wk">⭐ WK</span> Wonderkid
+<span class="bd bd-bn">💰</span> Bon plan
+<span class="bd bd-hd">💎</span> Pépite cachée
+<span class="bd bd-el">👑</span> Élite
+<span>· <strong id=rc>0</strong> résultats</span>
 </div>
 
-<div class="table-wrap" id="table">
-<table id="playerTable">
-<thead>
-  <tr>
-    <th onclick="sortTable(0)"># <span class="sort">↕</span></th>
-    <th onclick="sortTable(1)">Joueur <span class="sort">↕</span></th>
-    <th onclick="sortTable(2)">Âge <span class="sort">↕</span></th>
-    <th onclick="sortTable(3)">Poste <span class="sort">↕</span></th>
-    <th onclick="sortTable(4)">Club <span class="sort">↕</span></th>
-    <th onclick="sortTable(5)">Nation <span class="sort">↕</span></th>
-    <th onclick="sortTable(6)">CA <span class="sort">↕</span></th>
-    <th onclick="sortTable(7)">PA <span class="sort">↕</span></th>
-    <th onclick="sortTable(8)">Valeur <span class="sort">↕</span></th>
-    <th>Tags</th>
-  </tr>
-</thead>
-<tbody id="tableBody"></tbody>
+<div class=tw>
+<table id=t>
+<thead><tr>
+<th onclick=s(0)># <span class=s>↕</span></th>
+<th onclick=s(1)>Joueur <span class=s>↕</span></th>
+<th onclick=s(2)>Âge <span class=s>↕</span></th>
+<th onclick=s(3)>Poste <span class=s>↕</span></th>
+<th onclick=s(4)>Club <span class=s>↕</span></th>
+<th onclick=s(5)>Nation <span class=s>↕</span></th>
+<th onclick=s(6)>CA <span class=s>↕</span></th>
+<th onclick=s(7)>PA <span class=s>↕</span></th>
+<th onclick=s(8)>Valeur <span class=s>↕</span></th>
+<th>Tags</th>
+</tr></thead>
+<tbody id=b></tbody>
 </table>
 </div>
 
-<div class="pagination" id="pagination"></div>
+<div class=pg id=pg></div>
 
-<div class="guide" id="guide">
-  <h2>📖 Guide pour trouver les pépites cachées</h2>
-
-  <h3>🎯 Les bons réflexes</h3>
-  <ul>
-    <li>Utilise <a href="https://fmplayer.net/players" target="_blank"><strong>fmplayer.net</strong></a> pour parcourir <strong>773 313 joueurs</strong> avec filtres</li>
-    <li>Filtre par âge ≤21, potentiel élevé (PA ≥160), valeur abordable</li>
-    <li>Vérifie la <span class="key">personnalité</span> (Model Citizen, Resolute, Driven, Professional)</li>
-    <li>Un joueur avec <span class="key">PA 180+</span> mais une sale personnalité ne se développera pas</li>
-  </ul>
-
-  <h3>🌍 Les meilleures régions pour les pépites</h3>
-  <ul>
-    <li><span class="key-b">Amérique du Sud</span> (Brésil, Argentine, Uruguay, Colombie) — meilleur rapport qualité/prix</li>
-    <li><span class="key-b">Europe de l'Est</span> (Serbie, Croatie, Géorgie, République Tchèque) — joueurs physiques, peu chers</li>
-    <li><span class="key-b">Asie Centrale</span> (Kazakhstan, Ouzbékistan) — pépites à <strong>presque rien</strong></li>
-    <li><span class="key-b">Afrique de l'Ouest</span> (Nigeria, Ghana, Côte d'Ivoire, Sénégal) — talents bruts</li>
-    <li><span class="key-b">Scandinavie</span> (Suède, Norvège, Danemark) — bons gardiens et milieux</li>
-  </ul>
-
-  <h3>💡 Filtres de recherche qui marchent</h3>
-  <ul>
-    <li><strong>Pépite cachée :</strong> Âge 16-19 · Valeur &lt;5M · Détermination ≥14 · Attribut clé ≥12</li>
-    <li><strong>Futur world-class :</strong> Âge 16-18 · PA ≥170 · Bonne personnalité</li>
-    <li><strong>Bon plan :</strong> Âge 16-20 · Statut = Libre · CA ≥2 étoiles</li>
-    <li><strong>Regen :</strong> Scout les centres de formation en <span class="key">mars</span> chaque année (Brésil, Argentine, Espagne, Allemagne, France)</li>
-  </ul>
-
-  <h3>⚡ Développement</h3>
-  <ul>
-    <li>Défini un <span class="key">entraînement individuel</span> dès le jour 1</li>
-    <li><span class="key">Prêt</span> un jeune qui n'aura pas ≥20 matchs dans la saison</li>
-    <li>Utilise le <span class="key">mentorat</span> pour corriger les mauvaises personnalités (6-12 mois)</li>
-    <li>Les attributs <span class="key">physiques</span> se développent surtout entre 17 et 21 ans</li>
-    <li>Investis dans les <span class="key">installations</span> (training facilities, youth coaching)</li>
-  </ul>
+<!-- GUIDE -->
+<div class=guide id=guide>
+<h2>📖 Guide des pépites cachées FM26</h2>
+<h3>🎯 Réflexes</h3>
+<ul>
+<li>Utilise <a href=https://fmplayer.net/players target=_blank>fmplayer.net</a> pour <strong>773 313 joueurs</strong> avec filtres</li>
+<li>Filtre : âge ≤21 · PA ≥160 · valeur abordable</li>
+<li>Vérifie la <span class=k>personnalité</span> (Model Citizen, Resolute, Driven, Professional)</li>
+</ul>
+<h3>🌍 Meilleures régions</h3>
+<ul>
+<li><span class=kb>Amérique du Sud</span> — meilleur rapport Q/P (Brésil, Argentine, Uruguay, Colombie)</li>
+<li><span class=kb>Europe de l'Est</span> — joueurs physiques et pas chers (Serbie, Croatie, Géorgie)</li>
+<li><span class=kb>Asie Centrale</span> — pépites à presque rien (Kazakhstan, Ouzbékistan)</li>
+<li><span class=kb>Afrique de l'Ouest</span> — talents bruts (Nigeria, Ghana, Côte d'Ivoire)</li>
+</ul>
+<h3>💡 Filtres qui marchent</h3>
+<ul>
+<li><strong>Pépite cachée :</strong> Âge 16-19 · Valeur &lt;5M · Détermination ≥14 · Attribut clé ≥12</li>
+<li><strong>Bon plan :</strong> Âge 16-20 · Statut = Libre · CA ≥2★</li>
+<li><strong>Regen :</strong> Scout les centres en <span class=k>mars</span> (Brésil, Argentine, Espagne, France)</li>
+</ul>
+<h3>⚡ Développement</h3>
+<ul>
+<li>Entraînement <span class=k>individuel</span> dès le jour 1</li>
+<li><span class=k>Prêt</span> si pas ≥20 matchs/saison</li>
+<li><span class=k>Mentorat</span> pour corriger les personnalités (6-12 mois)</li>
+<li>Les attributs <span class=k>physiques</span> se développent surtout 17-21 ans</li>
+</ul>
 </div>
 
-<footer>
-  Football Manager 26 © Sports Interactive / SEGA.
-  Données issues de <a href="https://fmplayer.net/players" target="_blank">fmplayer.net</a>,
-  <a href="https://efem.club/players" target="_blank">efem.club</a>,
-  <a href="https://sortitoutsi.net" target="_blank">sortitoutsi.net</a>.
-  Site non officiel — but informatif.
-</footer>
+<footer>FM26 © Sports Interactive / SEGA · Données issues de <a href=https://fmplayer.net/players target=_blank>fmplayer.net</a>, <a href=https://efem.club/players target=_blank>efem.club</a>, <a href=https://sortitoutsi.net target=_blank>sortitoutsi.net</a></footer>
 </div>
 
 <script>
-const FLAGS = {
-  France:'🇫🇷',Angleterre:'🇬🇧',Espagne:'🇪🇸',Portugal:'🇵🇹',Brésil:'🇧🇷',
-  Norvège:'🇳🇴',PaysBas:'🇳🇱',Belgique:'🇧🇪',Égypte:'🇪🇬',Allemagne:'🇩🇪',
-  Argentine:'🇦🇷',Suède:'🇸🇪',Grèce:'🇬🇷',Italie:'🇮🇹',Turquie:'🇹🇷',
-  Croatie:'🇭🇷',Ukraine:'🇺🇦',Uruguay:'🇺🇾',Slovénie:'🇸🇮',Pologne:'🇵🇱',
-  Danemark:'🇩🇰',Autriche:'🇦🇹',Serbie:'🇷🇸',Suisse:'🇨🇭',Nigéria:'🇳🇬',
-  Cameroun:'🇨🇲',Ghana:'🇬🇭',CôtedIvoire:'🇨🇮',Sénégal:'🇸🇳',Maroc:'🇲🇦',
-  Algérie:'🇩🇿',Japon:'🇯🇵',CoréeSud:'🇰🇷',Australie:'🇦🇺',Irlande:'🇮🇪',
-  Écosse:'🇬🇧',Géorgie:'🇬🇪',Kazakhstan:'🇰🇿',Mexique:'🇲🇽',Canada:'🇨🇦',
-  Équateur:'🇪🇨',Chili:'🇨🇱',Colombie:'🇨🇴',Paraguay:'🇵🇾',Pérou:'🇵🇪',
-  Venezuela:'🇻🇪',Bolivie:'🇧🇴',Angola:'🇦🇴',Mali:'🇲🇱',RDC:'🇨🇩',
-  Zambie:'🇿🇲',AfriqueSud:'🇿🇦',Tunisie:'🇹🇳',Israël:'🇮🇱',ArabieSaoudite:'🇸🇦',
-  Qatar:'🇶🇦',EAU:'🇦🇪',Chine:'🇨🇳',CoréeNord:'🇰🇵'
-};
+const P=[
+// GARDIENS - 25
+{n:"Thibaut Courtois",a:33,g:"GK",c:"Real Madrid",t:"Belgique",ca:181,pa:185,v:"46M€"},
+{n:"Jan Oblak",a:32,g:"GK",c:"Atlético Madrid",t:"Slovénie",ca:178,pa:180,v:"30M€"},
+{n:"Alisson Becker",a:32,g:"GK",c:"Liverpool",t:"Brésil",ca:177,pa:179,v:"35M€"},
+{n:"Ederson",a:31,g:"GK",c:"Manchester City",t:"Brésil",ca:176,pa:178,v:"38M€"},
+{n:"Marc-André ter Stegen",a:34,g:"GK",c:"FC Barcelona",t:"Allemagne",ca:174,pa:177,v:"18M€"},
+{n:"Mike Maignan",a:29,g:"GK",c:"AC Milan",t:"France",ca:173,pa:176,v:"42M€"},
+{n:"Diogo Costa",a:25,g:"GK",c:"FC Porto",t:"Portugal",ca:170,pa:180,v:"55M€"},
+{n:"Gianluigi Donnarumma",a:26,g:"GK",c:"PSG",t:"Italie",ca:172,pa:178,v:"48M€"},
+{n:"Gregor Kobel",a:27,g:"GK",c:"Borussia Dortmund",t:"Suisse",ca:168,pa:175,v:"38M€"},
+{n:"Manuel Neuer",a:39,g:"GK",c:"Bayern Munich",t:"Allemagne",ca:172,pa:175,v:"5M€"},
+{n:"Andriy Lunin",a:26,g:"GK",c:"Real Madrid",t:"Ukraine",ca:162,pa:172,v:"22M€"},
+{n:"Robert Sánchez",a:27,g:"GK",c:"Chelsea",t:"Espagne",ca:156,pa:165,v:"15M€"},
+{n:"David Raya",a:29,g:"GK",c:"Arsenal",t:"Espagne",ca:160,pa:165,v:"20M€"},
+{n:"Aaron Ramsdale",a:27,g:"GK",c:"Southampton",t:"Angleterre",ca:158,pa:168,v:"18M€"},
+{n:"Lucas Chevalier",a:23,g:"GK",c:"Lille",t:"France",ca:155,pa:172,v:"25M€"},
+{n:"Giorgi Mamardashvili",a:24,g:"GK",c:"Valencia",t:"Géorgie",ca:154,pa:172,v:"22M€"},
+{n:"Bart Verbruggen",a:22,g:"GK",c:"Brighton",t:"PaysBas",ca:152,pa:176,v:"28M€",wk:1},
+{n:"Ferran Quetglas",a:19,g:"GK",c:"Real Madrid",t:"Espagne",ca:138,pa:178,v:"18M€",wk:1},
+{n:"Dennis Seimen",a:19,g:"GK",c:"VfB Stuttgart",t:"Allemagne",ca:125,pa:172,v:"4M€",wk:1,bn:1},
+{n:"Julian Eyestone",a:19,g:"GK",c:"Brentford",t:"États-Unis",ca:122,pa:170,v:"6M€",wk:1},
+{n:"Mike Penders",a:20,g:"GK",c:"Chelsea",t:"Belgique",ca:120,pa:170,v:"5M€",wk:1,bn:1},
+{n:"Kerem Matışlı",a:18,g:"GK",c:"Bursaspor",t:"Turquie",ca:110,pa:165,v:"1,5M€",wk:1,bn:1},
+{n:"Semen Spichak",a:17,g:"GK",c:"Dynamo Kyiv",t:"Ukraine",ca:108,pa:168,v:"1,2M€",wk:1,bn:1},
+{n:"Trey Nyoni",a:17,g:"GK",c:"Liverpool",t:"Angleterre",ca:105,pa:165,v:"2M€",wk:1,bn:1},
+{n:"Santiago Mele",a:22,g:"GK",c:"Marseille",t:"Uruguay",ca:142,pa:170,v:"8M€",wk:1,bn:1},
 
-const players = [
-  // GARDIENS (14)
-  {n:"Thibaut Courtois",a:33,p:"GK",c:"Real Madrid",na:"Belgique",ca:181,pa:185,v:"46 M€"},
-  {n:"Jan Oblak",a:32,p:"GK",c:"Atlético Madrid",na:"Slovénie",ca:178,pa:180,v:"30 M€"},
-  {n:"Alisson Becker",a:32,p:"GK",c:"Liverpool",na:"Brésil",ca:177,pa:179,v:"35 M€"},
-  {n:"Ederson",a:31,p:"GK",c:"Manchester City",na:"Brésil",ca:176,pa:178,v:"38 M€"},
-  {n:"Marc-André ter Stegen",a:34,p:"GK",c:"FC Barcelona",na:"Allemagne",ca:174,pa:177,v:"18 M€"},
-  {n:"Manuel Neuer",a:39,p:"GK",c:"Bayern Munich",na:"Allemagne",ca:172,pa:175,v:"5 M€"},
-  {n:"Mike Maignan",a:29,p:"GK",c:"AC Milan",na:"France",ca:173,pa:176,v:"42 M€"},
-  {n:"Diogo Costa",a:25,p:"GK",c:"FC Porto",na:"Portugal",ca:170,pa:180,v:"55 M€"},
-  {n:"Gianluigi Donnarumma",a:26,p:"GK",c:"PSG",na:"Italie",ca:172,pa:178,v:"48 M€"},
-  {n:"Gregor Kobel",a:27,p:"GK",c:"Borussia Dortmund",na:"Suisse",ca:168,pa:175,v:"38 M€"},
-  {n:"Andriy Lunin",a:26,p:"GK",c:"Real Madrid",na:"Ukraine",ca:162,pa:172,v:"22 M€"},
-  {n:"Ferran Quetglas",a:19,p:"GK",c:"Real Madrid",na:"Espagne",ca:138,pa:178,v:"18 M€",wk:true},
-  {n:"Dennis Seimen",a:19,p:"GK",c:"VfB Stuttgart",na:"Allemagne",ca:125,pa:170,v:"4 M€",wk:true},
-  {n:"Julian Eyestone",a:19,p:"GK",c:"Brentford",na:"États-Unis",ca:122,pa:168,v:"6 M€",wk:true},
-  {n:"Mike Penders",a:20,p:"GK",c:"Chelsea",na:"Belgique",ca:120,pa:170,v:"5 M€",wk:true},
-  {n:"Kerem Matışlı",a:18,p:"GK",c:"Bursaspor",na:"Turquie",ca:110,pa:165,v:"1,5 M€",wk:true,bn:true},
+// DÉFENSEURS CENTRAUX - 50
+{n:"Virgil van Dijk",a:33,g:"DC",c:"Liverpool",t:"PaysBas",ca:183,pa:186,v:"15M€"},
+{n:"Rúben Dias",a:27,g:"DC",c:"Manchester City",t:"Portugal",ca:173,pa:177,v:"65M€"},
+{n:"Marquinhos",a:31,g:"DC/DM",c:"PSG",t:"Brésil",ca:172,pa:177,v:"40M€"},
+{n:"Antonio Rüdiger",a:32,g:"DC",c:"Real Madrid",t:"Allemagne",ca:171,pa:175,v:"25M€"},
+{n:"Gabriel",a:27,g:"DC",c:"Arsenal",t:"Brésil",ca:170,pa:176,v:"58M€"},
+{n:"Eder Militão",a:27,g:"DC",c:"Real Madrid",t:"Brésil",ca:169,pa:176,v:"52M€"},
+{n:"Joško Gvardiol",a:22,g:"DC/LB",c:"Manchester City",t:"Croatie",ca:169,pa:182,v:"75M€"},
+{n:"William Saliba",a:24,g:"DC",c:"Arsenal",t:"France",ca:168,pa:180,v:"70M€"},
+{n:"Alessandro Bastoni",a:26,g:"DC",c:"Inter Milan",t:"Italie",ca:167,pa:175,v:"55M€"},
+{n:"Kim Min-jae",a:28,g:"DC",c:"Bayern Munich",t:"CoréeSud",ca:166,pa:172,v:"42M€"},
+{n:"Ronald Araújo",a:26,g:"DC",c:"FC Barcelona",t:"Uruguay",ca:165,pa:175,v:"50M€"},
+{n:"Jules Koundé",a:27,g:"DC/DD",c:"FC Barcelona",t:"France",ca:165,pa:172,v:"42M€"},
+{n:"Micky van de Ven",a:24,g:"DC",c:"Tottenham",t:"PaysBas",ca:162,pa:176,v:"45M€"},
+{n:"Castello Lukeba",a:22,g:"DC",c:"RB Leipzig",t:"France",ca:160,pa:178,v:"40M€"},
+{n:"John Stones",a:31,g:"DC/DM",c:"Manchester City",t:"Angleterre",ca:164,pa:170,v:"22M€"},
+{n:"Matthijs de Ligt",a:26,g:"DC",c:"Manchester United",t:"PaysBas",ca:163,pa:178,v:"40M€"},
+{n:"Dayot Upamecano",a:26,g:"DC",c:"Bayern Munich",t:"France",ca:163,pa:176,v:"38M€"},
+{n:"Lucas Hernández",a:29,g:"DC/LB",c:"PSG",t:"France",ca:164,pa:170,v:"28M€"},
+{n:"Pau Cubarsí",a:17,g:"DC",c:"FC Barcelona",t:"Espagne",ca:145,pa:184,v:"55M€",wk:1},
+{n:"Leny Yoro",a:19,g:"DC",c:"Manchester United",t:"France",ca:152,pa:182,v:"60M€",wk:1},
+{n:"Dean Huijsen",a:19,g:"DC",c:"Bournemouth",t:"PaysBas",ca:140,pa:178,v:"30M€",wk:1},
+{n:"Luka Vušković",a:18,g:"DC",c:"Tottenham",t:"Croatie",ca:135,pa:176,v:"20M€",wk:1},
+{n:"Willy Kambwala",a:20,g:"DC",c:"Villarreal",t:"France",ca:138,pa:172,v:"15M€",wk:1},
+{n:"Jorrel Hato",a:19,g:"DC/LB",c:"Ajax",t:"PaysBas",ca:146,pa:178,v:"35M€",wk:1},
+{n:"Christopher Cupps",a:17,g:"DC",c:"Chicago Fire",t:"États-Unis",ca:115,pa:170,v:"10M€",wk:1},
+{n:"Noahkai Banks",a:18,g:"DC",c:"FC Augsburg",t:"États-Unis",ca:128,pa:172,v:"8M€",wk:1},
+{n:"Matteo Palma",a:18,g:"DC",c:"Udinese",t:"Allemagne",ca:125,pa:168,v:"5M€",wk:1,bn:1},
+{n:"Juma Bah",a:19,g:"DC",c:"Manchester City",t:"SierraLeone",ca:132,pa:172,v:"12M€",wk:1},
+{n:"Mario Gila",a:24,g:"DC",c:"Lazio",t:"Espagne",ca:148,pa:168,v:"18M€"},
+{n:"Ousmane Diomande",a:21,g:"DC",c:"Sporting CP",t:"CôtedIvoire",ca:148,pa:176,v:"30M€",wk:1},
+{n:"Gonçalo Inácio",a:23,g:"DC",c:"Sporting CP",t:"Portugal",ca:150,pa:172,v:"28M€"},
+{n:"Tomas Araújo",a:23,g:"DC",c:"Benfica",t:"Portugal",ca:146,pa:174,v:"22M€"},
+{n:"António Silva",a:21,g:"DC",c:"Benfica",t:"Portugal",ca:150,pa:178,v:"35M€",wk:1},
+{n:"Nuno Mendes",a:22,g:"DG",c:"PSG",t:"Portugal",ca:163,pa:178,v:"45M€"},
+{n:"Alphonso Davies",a:24,g:"DG/MG",c:"Bayern Munich",t:"Canada",ca:167,pa:178,v:"58M€"},
+{n:"Theo Hernández",a:27,g:"DG",c:"AC Milan",t:"France",ca:166,pa:173,v:"50M€"},
+{n:"Saba Kharebashvili",a:16,g:"DG/DC",c:"Dinamo Tbilisi",t:"Géorgie",ca:115,pa:178,v:"2,5M€",wk:1,bn:1},
+{n:"Davinchi",a:18,g:"DG",c:"Getafe",t:"Brésil",ca:120,pa:168,v:"3M€",wk:1,bn:1},
+{n:"Patrick Dorgu",a:20,g:"DG",c:"Lecce",t:"Danemark",ca:140,pa:174,v:"18M€",wk:1},
+{n:"Myles Lewis-Skelly",a:18,g:"DG/DM",c:"Arsenal",t:"Angleterre",ca:135,pa:178,v:"25M€",wk:1},
+{n:"Reece James",a:25,g:"DD/DM",c:"Chelsea",t:"Angleterre",ca:165,pa:174,v:"48M€"},
+{n:"Trent Alexander-Arnold",a:27,g:"DD/MC",c:"Liverpool",t:"Angleterre",ca:170,pa:176,v:"60M€"},
+{n:"Giovanni Di Lorenzo",a:31,g:"DD/DC",c:"Napoli",t:"Italie",ca:163,pa:167,v:"18M€"},
+{n:"Davide Calabria",a:28,g:"DD",c:"AC Milan",t:"Italie",ca:155,pa:162,v:"22M€"},
+{n:"Rico Lewis",a:20,g:"DD/MC",c:"Manchester City",t:"Angleterre",ca:148,pa:178,v:"40M€",wk:1},
+{n:"Ivan Fresneda",a:20,g:"DD",c:"Sporting CP",t:"Espagne",ca:145,pa:174,v:"28M€",wk:1},
+{n:"Jeremy Frimpong",a:24,g:"DD/MD",c:"Bayer Leverkusen",t:"PaysBas",ca:158,pa:172,v:"35M€"},
+{n:"Vanderson",a:23,g:"DD",c:"AS Monaco",t:"Brésil",ca:148,pa:172,v:"25M€"},
+{n:"Malo Gusto",a:22,g:"DD",c:"Chelsea",t:"France",ca:150,pa:176,v:"35M€",wk:1},
+{n:"Sacha Boey",a:24,g:"DD",c:"Bayern Munich",t:"France",ca:152,pa:170,v:"28M€"},
 
-  // DÉFENSEURS CENTRAUX (25)
-  {n:"Virgil van Dijk",a:33,p:"DC",c:"Liverpool",na:"PaysBas",ca:183,pa:186,v:"15 M€"},
-  {n:"Gabriel",a:27,p:"DC",c:"Arsenal",na:"Brésil",ca:170,pa:176,v:"58 M€"},
-  {n:"Marquinhos",a:31,p:"DC/DM",c:"PSG",na:"Brésil",ca:172,pa:177,v:"40 M€"},
-  {n:"Antonio Rüdiger",a:32,p:"DC",c:"Real Madrid",na:"Allemagne",ca:171,pa:175,v:"25 M€"},
-  {n:"Rúben Dias",a:27,p:"DC",c:"Manchester City",na:"Portugal",ca:173,pa:177,v:"65 M€"},
-  {n:"William Saliba",a:24,p:"DC",c:"Arsenal",na:"France",ca:168,pa:180,v:"70 M€"},
-  {n:"Eder Militão",a:27,p:"DC",c:"Real Madrid",na:"Brésil",ca:169,pa:176,v:"52 M€"},
-  {n:"Alessandro Bastoni",a:26,p:"DC",c:"Inter Milan",na:"Italie",ca:167,pa:175,v:"55 M€"},
-  {n:"Kim Min-jae",a:28,p:"DC",c:"Bayern Munich",na:"CoréeSud",ca:166,pa:172,v:"42 M€"},
-  {n:"Ronald Araújo",a:26,p:"DC",c:"FC Barcelona",na:"Uruguay",ca:165,pa:175,v:"50 M€"},
-  {n:"Jules Koundé",a:27,p:"DC/DD",c:"FC Barcelona",na:"France",ca:165,pa:172,v:"42 M€"},
-  {n:"Micky van de Ven",a:24,p:"DC",c:"Tottenham",na:"PaysBas",ca:162,pa:176,v:"45 M€"},
-  {n:"Castello Lukeba",a:22,p:"DC",c:"RB Leipzig",na:"France",ca:160,pa:178,v:"40 M€"},
-  {n:"Joško Gvardiol",a:22,p:"DC/LB",c:"Manchester City",na:"Croatie",ca:169,pa:182,v:"75 M€"},
-  {n:"Pau Cubarsí",a:17,p:"DC",c:"FC Barcelona",na:"Espagne",ca:145,pa:182,v:"55 M€",wk:true},
-  {n:"Leny Yoro",a:19,p:"DC",c:"Manchester United",na:"France",ca:152,pa:180,v:"60 M€",wk:true},
-  {n:"Dean Huijsen",a:19,p:"DC",c:"Bournemouth",na:"PaysBas",ca:140,pa:177,v:"30 M€",wk:true},
-  {n:"Luka Vušković",a:18,p:"DC",c:"Tottenham",na:"Croatie",ca:135,pa:175,v:"20 M€",wk:true},
-  {n:"Willy Kambwala",a:20,p:"DC",c:"Villarreal",na:"France",ca:138,pa:172,v:"15 M€",wk:true},
-  {n:"Jorrel Hato",a:19,p:"DC/LB",c:"Ajax",na:"PaysBas",ca:146,pa:176,v:"35 M€",wk:true},
-  {n:"Matteo Palma",a:18,p:"DC",c:"Udinese",na:"Allemagne",ca:125,pa:168,v:"5 M€",wk:true,bn:true},
-  {n:"Christopher Cupps",a:17,p:"DC",c:"Chicago Fire",na:"États-Unis",ca:115,pa:170,v:"10 M€",wk:true},
-  {n:"Noahkai Banks",a:18,p:"DC",c:"FC Augsburg",na:"États-Unis",ca:128,pa:172,v:"8 M€",wk:true},
-  {n:"Saba Kharebashvili",a:16,p:"DC/LB",c:"Dinamo Tbilisi",na:"Géorgie",ca:115,pa:176,v:"2,5 M€",wk:true,bn:true},
-  {n:"Davinchi",a:18,p:"LB",c:"Getafe",na:"Brésil",ca:120,pa:168,v:"3 M€",wk:true,bn:true},
+// MILIEUX DÉFENSIFS - 25
+{n:"Declan Rice",a:26,g:"MD",c:"Arsenal",t:"Angleterre",ca:181,pa:184,v:"130M€"},
+{n:"Rodri",a:29,g:"MD/DC",c:"Manchester City",t:"Espagne",ca:180,pa:185,v:"99M€"},
+{n:"Joshua Kimmich",a:30,g:"MD/DD",c:"Bayern Munich",t:"Allemagne",ca:174,pa:178,v:"65M€"},
+{n:"Vitinha",a:25,g:"MD",c:"PSG",t:"Portugal",ca:172,pa:178,v:"75M€"},
+{n:"Eduardo Camavinga",a:22,g:"MD/DG",c:"Real Madrid",t:"France",ca:170,pa:182,v:"80M€"},
+{n:"Aurélien Tchouaméni",a:25,g:"MD",c:"Real Madrid",t:"France",ca:168,pa:180,v:"70M€"},
+{n:"Moisés Caicedo",a:23,g:"MD/MC",c:"Chelsea",t:"Équateur",ca:166,pa:179,v:"65M€"},
+{n:"João Neves",a:20,g:"MD",c:"PSG",t:"Portugal",ca:152,pa:182,v:"60M€",wk:1},
+{n:"Warren Zaïre-Emery",a:18,g:"MC/MD",c:"PSG",t:"France",ca:162,pa:186,v:"65M€",wk:1},
+{n:"Kobbie Mainoo",a:20,g:"MC",c:"Manchester United",t:"Angleterre",ca:152,pa:180,v:"55M€",wk:1},
+{n:"Archie Gray",a:19,g:"MD/DD",c:"Tottenham",t:"Angleterre",ca:140,pa:178,v:"30M€",wk:1},
+{n:"Kennet Eichhorn",a:15,g:"MD",c:"Hertha BSC",t:"Allemagne",ca:100,pa:174,v:"1M€",wk:1,bn:1},
+{n:"Bruno Guimarães",a:27,g:"MD",c:"Newcastle",t:"Brésil",ca:168,pa:174,v:"55M€"},
+{n:"Manuel Locatelli",a:27,g:"MD",c:"Juventus",t:"Italie",ca:160,pa:170,v:"30M€"},
+{n:"Sandro Tonali",a:25,g:"MD",c:"Newcastle",t:"Italie",ca:165,pa:176,v:"50M€"},
+{n:"Youssouf Fofana",a:25,g:"MD",c:"AC Milan",t:"France",ca:162,pa:172,v:"35M€"},
+{n:"Khephren Thuram",a:24,g:"MD",c:"Nice",t:"France",ca:158,pa:176,v:"30M€"},
+{n:"Ederson",a:23,g:"MD",c:"Atalanta",t:"Brésil",ca:155,pa:174,v:"28M€"},
+{n:"Morten Hjulmand",a:25,g:"MD",c:"Sporting CP",t:"Danemark",ca:152,pa:170,v:"22M€"},
+{n:"Stanislav Lobotka",a:30,g:"MD",c:"Napoli",t:"Slovaquie",ca:158,pa:163,v:"18M€"},
+{n:"Tijjani Reijnders",a:26,g:"MC",c:"AC Milan",t:"PaysBas",ca:156,pa:172,v:"30M€"},
+{n:"Mats Wieffer",a:25,g:"MD",c:"Brighton",t:"PaysBas",ca:150,pa:170,v:"25M€"},
+{n:"Joey Veerman",a:26,g:"MC",c:"PSV",t:"PaysBas",ca:152,pa:170,v:"22M€"},
+{n:"André",a:23,g:"MD",c:"Wolverhampton",t:"Brésil",ca:148,pa:174,v:"25M€"},
+{n:"Facundo Bernal",a:21,g:"MD",c:"Defensa",t:"Uruguay",ca:138,pa:172,v:"10M€",wk:1,bn:1},
 
-  // LATÉRAUX (12)
-  {n:"Reece James",a:25,p:"DD/DM",c:"Chelsea",na:"Angleterre",ca:165,pa:174,v:"48 M€"},
-  {n:"Trent Alexander-Arnold",a:27,p:"DD/MC",c:"Liverpool",na:"Angleterre",ca:170,pa:176,v:"60 M€"},
-  {n:"Giovanni Di Lorenzo",a:31,p:"DD/DC",c:"Napoli",na:"Italie",ca:163,pa:167,v:"18 M€"},
-  {n:"Alphonso Davies",a:24,p:"DG/MG",c:"Bayern Munich",na:"Canada",ca:167,pa:178,v:"58 M€"},
-  {n:"Theo Hernández",a:27,p:"DG",c:"AC Milan",na:"France",ca:166,pa:173,v:"50 M€"},
-  {n:"Nuno Mendes",a:22,p:"DG",c:"PSG",na:"Portugal",ca:163,pa:178,v:"45 M€"},
-  {n:"Davide Calabria",a:28,p:"DD",c:"AC Milan",na:"Italie",ca:155,pa:162,v:"22 M€"},
-  {n:"Myles Lewis-Skelly",a:18,p:"LB/DM",c:"Arsenal",na:"Angleterre",ca:135,pa:178,v:"25 M€",wk:true},
-  {n:"Rico Lewis",a:20,p:"DD/MC",c:"Manchester City",na:"Angleterre",ca:148,pa:176,v:"40 M€",wk:true},
-  {n:"Ivan Fresneda",a:20,p:"DD",c:"Sporting CP",na:"Espagne",ca:145,pa:174,v:"28 M€",wk:true},
-  {n:"Patrick Dorgu",a:20,p:"LB",c:"Lecce",na:"Danemark",ca:140,pa:172,v:"18 M€",wk:true},
-  {n:"Saba Kharebashvili",a:16,p:"LB/DC",c:"Dinamo Tbilisi",na:"Géorgie",ca:115,pa:176,v:"2,5 M€",wk:true,bn:true},
+// MILIEUX CENTRAUX - 30
+{n:"Jude Bellingham",a:22,g:"MO",c:"Real Madrid",t:"Angleterre",ca:181,pa:190,v:"160M€"},
+{n:"Federico Valverde",a:26,g:"MC",c:"Real Madrid",t:"Uruguay",ca:172,pa:176,v:"75M€"},
+{n:"Pedri",a:22,g:"MC",c:"FC Barcelona",t:"Espagne",ca:174,pa:184,v:"90M€"},
+{n:"Gavi",a:20,g:"MC",c:"FC Barcelona",t:"Espagne",ca:170,pa:186,v:"85M€",wk:1},
+{n:"Bruno Fernandes",a:30,g:"MO",c:"Manchester United",t:"Portugal",ca:173,pa:175,v:"55M€"},
+{n:"Martin Ødegaard",a:26,g:"MO",c:"Arsenal",t:"Norvège",ca:172,pa:177,v:"70M€"},
+{n:"Enzo Fernández",a:24,g:"MC",c:"Chelsea",t:"Argentine",ca:167,pa:178,v:"60M€"},
+{n:"Ayyoub Bouaddi",a:17,g:"MC",c:"Lille",t:"France",ca:163,pa:182,v:"30M€",wk:1},
+{n:"Lucas Bergvall",a:18,g:"MC",c:"Tottenham",t:"Suède",ca:155,pa:182,v:"25M€",wk:1},
+{n:"Nico Paz",a:20,g:"MO",c:"Como",t:"Argentine",ca:157,pa:182,v:"28M€",wk:1},
+{n:"Konstantinos Karetsas",a:17,g:"MO",c:"Genk",t:"Grèce",ca:150,pa:180,v:"15M€",wk:1},
+{n:"Tyler Dibling",a:18,g:"MO/MD",c:"Everton",t:"Angleterre",ca:150,pa:180,v:"22M€",wk:1},
+{n:"Claudio Echeverri",a:19,g:"MO",c:"Manchester City",t:"Argentine",ca:140,pa:180,v:"30M€",wk:1},
+{n:"Franco Mastantuono",a:18,g:"MO",c:"Real Madrid",t:"Argentine",ca:135,pa:180,v:"35M€",wk:1},
+{n:"Ethan Nwaneri",a:17,g:"MO",c:"Arsenal",t:"Angleterre",ca:130,pa:178,v:"20M€",wk:1},
+{n:"Arda Güler",a:19,g:"MO/AD",c:"Real Madrid",t:"Turquie",ca:152,pa:182,v:"30M€",wk:1},
+{n:"Kenan Yıldız",a:20,g:"MO/AG",c:"Juventus",t:"Turquie",ca:148,pa:178,v:"35M€",wk:1},
+{n:"Gilberto Mora",a:16,g:"MO",c:"Club Tijuana",t:"Mexique",ca:115,pa:176,v:"8M€",wk:1,bn:1},
+{n:"Abdellah Ouzane",a:17,g:"MC",c:"Ajax",t:"Maroc",ca:120,pa:172,v:"5M€",wk:1,bn:1},
+{n:"Nathan De Cat",a:18,g:"MC",c:"Anderlecht",t:"Belgique",ca:125,pa:170,v:"6M€",wk:1,bn:1},
+{n:"Jamal Musiala",a:22,g:"MO",c:"Bayern Munich",t:"Allemagne",ca:176,pa:186,v:"120M€"},
+{n:"Florian Wirtz",a:22,g:"MO",c:"Bayer Leverkusen",t:"Allemagne",ca:174,pa:186,v:"100M€"},
+{n:"Bernardo Silva",a:30,g:"MC/MO",c:"Manchester City",t:"Portugal",ca:175,pa:178,v:"55M€"},
+{n:"Xavi Simons",a:22,g:"MO",c:"RB Leipzig",t:"PaysBas",ca:164,pa:180,v:"60M€"},
+{n:"James Maddison",a:28,g:"MO",c:"Tottenham",t:"Angleterre",ca:165,pa:172,v:"40M€"},
+{n:"Cole Palmer",a:23,g:"MO/AD",c:"Chelsea",t:"Angleterre",ca:168,pa:180,v:"80M€"},
+{n:"Dominik Szoboszlai",a:24,g:"MO",c:"Liverpool",t:"Hongrie",ca:168,pa:176,v:"55M€"},
+{n:"Dani Olmo",a:27,g:"MO",c:"FC Barcelona",t:"Espagne",ca:166,pa:174,v:"45M€"},
+{n:"Pablo Barrios",a:22,g:"MC",c:"Atlético Madrid",t:"Espagne",ca:150,pa:176,v:"28M€",wk:1},
+{n:"Kiernan Dewsbury-Hall",a:26,g:"MC",c:"Chelsea",t:"Angleterre",ca:152,pa:168,v:"20M€"},
+{n:"Alexis Mac Allister",a:26,g:"MC",c:"Liverpool",t:"Argentine",ca:168,pa:174,v:"50M€"},
+{n:"Ryan Gravenberch",a:23,g:"MC",c:"Liverpool",t:"PaysBas",ca:158,pa:178,v:"40M€"},
 
-  // MILIEUX DÉFENSIFS (12)
-  {n:"Declan Rice",a:26,p:"MD",c:"Arsenal",na:"Angleterre",ca:181,pa:184,v:"130 M€"},
-  {n:"Rodri",a:29,p:"MD/DC",c:"Manchester City",na:"Espagne",ca:180,pa:185,v:"99 M€"},
-  {n:"Joshua Kimmich",a:30,p:"MD/DD",c:"Bayern Munich",na:"Allemagne",ca:174,pa:178,v:"65 M€"},
-  {n:"Vitinha",a:25,p:"MD",c:"PSG",na:"Portugal",ca:172,pa:178,v:"75 M€"},
-  {n:"Eduardo Camavinga",a:22,p:"MD/DG",c:"Real Madrid",na:"France",ca:170,pa:182,v:"80 M€"},
-  {n:"Aurélien Tchouaméni",a:25,p:"MD",c:"Real Madrid",na:"France",ca:168,pa:180,v:"70 M€"},
-  {n:"Moisés Caicedo",a:23,p:"MD/MC",c:"Chelsea",na:"Équateur",ca:166,pa:179,v:"65 M€"},
-  {n:"João Neves",a:20,p:"MD",c:"PSG",na:"Portugal",ca:152,pa:180,v:"60 M€",wk:true},
-  {n:"Warren Zaïre-Emery",a:18,p:"MC",c:"PSG",na:"France",ca:162,pa:185,v:"65 M€",wk:true},
-  {n:"Kobbie Mainoo",a:20,p:"MC",c:"Manchester United",na:"Angleterre",ca:152,pa:178,v:"55 M€",wk:true},
-  {n:"Archie Gray",a:19,p:"MD/DD",c:"Tottenham",na:"Angleterre",ca:140,pa:176,v:"30 M€",wk:true},
-  {n:"Kennet Eichhorn",a:15,p:"MD",c:"Hertha BSC",na:"Allemagne",ca:100,pa:172,v:"1 M€",wk:true,bn:true},
+// AILIERS - 40
+{n:"Kylian Mbappé",a:26,g:"AG/ST",c:"Real Madrid",t:"France",ca:191,pa:195,v:"200M€"},
+{n:"Mohamed Salah",a:33,g:"AD/ST",c:"Liverpool",t:"Égypte",ca:186,pa:188,v:"60M€"},
+{n:"Ousmane Dembélé",a:28,g:"AD/AG",c:"PSG",t:"France",ca:185,pa:188,v:"80M€"},
+{n:"Vinícius Júnior",a:24,g:"AG/ST",c:"Real Madrid",t:"Brésil",ca:183,pa:192,v:"160M€"},
+{n:"Bukayo Saka",a:23,g:"AD/AG",c:"Arsenal",t:"Angleterre",ca:181,pa:188,v:"150M€"},
+{n:"Lamine Yamal",a:17,g:"AD/AG",c:"FC Barcelona",t:"Espagne",ca:186,pa:196,v:"180M€",wk:1},
+{n:"Rodrygo",a:24,g:"AD/AG",c:"Real Madrid",t:"Brésil",ca:174,pa:182,v:"90M€"},
+{n:"Phil Foden",a:25,g:"MO/AD",c:"Manchester City",t:"Angleterre",ca:175,pa:180,v:"95M€"},
+{n:"Raphinha",a:28,g:"AD",c:"FC Barcelona",t:"Brésil",ca:167,pa:173,v:"45M€"},
+{n:"Kingsley Coman",a:29,g:"AD/AG",c:"Bayern Munich",t:"France",ca:167,pa:174,v:"35M€"},
+{n:"Leroy Sané",a:29,g:"AD/AG",c:"Bayern Munich",t:"Allemagne",ca:169,pa:175,v:"42M€"},
+{n:"Gabriel Martinelli",a:24,g:"AG",c:"Arsenal",t:"Brésil",ca:166,pa:178,v:"55M€"},
+{n:"Khvicha Kvaratskhelia",a:24,g:"AG",c:"PSG",t:"Géorgie",ca:168,pa:180,v:"70M€"},
+{n:"Alejandro Garnacho",a:20,g:"AG/AD",c:"Manchester United",t:"Argentine",ca:162,pa:184,v:"50M€",wk:1},
+{n:"Savinho",a:21,g:"AD/AG",c:"Manchester City",t:"Brésil",ca:158,pa:180,v:"45M€",wk:1},
+{n:"Désiré Doué",a:19,g:"AG/AD",c:"PSG",t:"France",ca:150,pa:180,v:"35M€",wk:1},
+{n:"Estêvão",a:18,g:"AD/AG",c:"Chelsea",t:"Brésil",ca:140,pa:184,v:"40M€",wk:1},
+{n:"Julien Duranville",a:19,g:"AD/AG",c:"Borussia Dortmund",t:"Belgique",ca:142,pa:178,v:"25M€",wk:1},
+{n:"Ben Doak",a:19,g:"AD",c:"Middlesbrough",t:"Écosse",ca:138,pa:180,v:"22M€",wk:1},
+{n:"Rio Ngumoha",a:16,g:"AG",c:"Liverpool",t:"Angleterre",ca:110,pa:174,v:"8M€",wk:1,bn:1},
+{n:"Amara Diouf",a:16,g:"AG",c:"Metz",t:"Sénégal",ca:105,pa:174,v:"1,5M€",wk:1,bn:1},
+{n:"Assane Diao",a:19,g:"AD/AG",c:"Como",t:"Espagne",ca:145,pa:180,v:"20M€",wk:1},
+{n:"Geovany Quenda",a:18,g:"AD/ST",c:"Sporting CP",t:"Portugal",ca:148,pa:180,v:"20M€",wk:1},
+{n:"Jack Grealish",a:29,g:"AG",c:"Manchester City",t:"Angleterre",ca:165,pa:172,v:"40M€"},
+{n:"Marcus Rashford",a:27,g:"AG/ST",c:"Manchester United",t:"Angleterre",ca:162,pa:174,v:"40M€"},
+{n:"Jadon Sancho",a:25,g:"AG/AD",c:"Chelsea",t:"Angleterre",ca:160,pa:175,v:"35M€"},
+{n:"Rayan Cherki",a:21,g:"MO/AD",c:"Lyon",t:"France",ca:158,pa:180,v:"30M€",wk:1},
+{n:"Bradley Barcola",a:22,g:"AG/AD",c:"PSG",t:"France",ca:160,pa:178,v:"35M€"},
+{n:"Michael Olise",a:23,g:"AD/MO",c:"Bayern Munich",t:"France",ca:162,pa:178,v:"45M€"},
+{n:"Nico Williams",a:23,g:"AG",c:"Athletic Club",t:"Espagne",ca:162,pa:176,v:"40M€"},
+{n:"Rafael Leão",a:25,g:"AG",c:"AC Milan",t:"Portugal",ca:172,pa:182,v:"75M€"},
+{n:"Kaoru Mitoma",a:28,g:"AG",c:"Brighton",t:"Japon",ca:164,pa:170,v:"35M€"},
+{n:"Takefusa Kubo",a:24,g:"AD/MO",c:"Real Sociedad",t:"Japon",ca:156,pa:172,v:"25M€"},
+{n:"Ansu Fati",a:22,g:"AG/ST",c:"FC Barcelona",t:"Espagne",ca:152,pa:180,v:"25M€"},
+{n:"Yéremy Pino",a:22,g:"AD/AG",c:"Villarreal",t:"Espagne",ca:152,pa:176,v:"28M€"},
+{n:"Matías Soulé",a:22,g:"AD/AG",c:"Roma",t:"Argentine",ca:148,pa:176,v:"22M€",wk:1},
+{n:"Cristian Romero",a:19,g:"AG/AD",c:"Milan",t:"Argentine",ca:130,pa:172,v:"10M€",wk:1,bn:1},
+{n:"Angelo",a:20,g:"AD/AG",c:"Chelsea",t:"Brésil",ca:142,pa:174,v:"15M€",wk:1},
+{n:"Johan Bakayoko",a:22,g:"AD",c:"PSV",t:"Belgique",ca:150,pa:174,v:"22M€",wk:1},
+{n:"Antonio Nusa",a:20,g:"AG/AD",c:"RB Leipzig",t:"Norvège",ca:145,pa:178,v:"25M€",wk:1},
 
-  // MILIEUX CENTRAUX (20)
-  {n:"Jude Bellingham",a:22,p:"MO",c:"Real Madrid",na:"Angleterre",ca:181,pa:190,v:"160 M€"},
-  {n:"Federico Valverde",a:26,p:"MC",c:"Real Madrid",na:"Uruguay",ca:172,pa:176,v:"75 M€"},
-  {n:"Pedri",a:22,p:"MC",c:"FC Barcelona",na:"Espagne",ca:174,pa:182,v:"90 M€"},
-  {n:"Gavi",a:20,p:"MC",c:"FC Barcelona",na:"Espagne",ca:170,pa:185,v:"85 M€"},
-  {n:"Bruno Fernandes",a:30,p:"MO",c:"Manchester United",na:"Portugal",ca:173,pa:175,v:"55 M€"},
-  {n:"Martin Ødegaard",a:26,p:"MO",c:"Arsenal",na:"Norvège",ca:172,pa:177,v:"70 M€"},
-  {n:"Enzo Fernández",a:24,p:"MC",c:"Chelsea",na:"Argentine",ca:167,pa:178,v:"60 M€"},
-  {n:"Ayyoub Bouaddi",a:17,p:"MC",c:"Lille",na:"France",ca:163,pa:181,v:"30 M€",wk:true},
-  {n:"Lucas Bergvall",a:18,p:"MC",c:"Tottenham",na:"Suède",ca:155,pa:181,v:"25 M€",wk:true},
-  {n:"Nico Paz",a:20,p:"MO",c:"Como",na:"Argentine",ca:157,pa:181,v:"28 M€",wk:true},
-  {n:"Konstantinos Karetsas",a:17,p:"MO",c:"Genk",na:"Grèce",ca:150,pa:180,v:"15 M€",wk:true},
-  {n:"Tyler Dibling",a:18,p:"MO/MD",c:"Southampton",na:"Angleterre",ca:150,pa:180,v:"22 M€",wk:true},
-  {n:"Claudio Echeverri",a:19,p:"MO",c:"Manchester City",na:"Argentine",ca:140,pa:178,v:"30 M€",wk:true},
-  {n:"Franco Mastantuono",a:18,p:"MO",c:"Real Madrid",na:"Argentine",ca:135,pa:180,v:"35 M€",wk:true},
-  {n:"Ethan Nwaneri",a:17,p:"MO",c:"Arsenal",na:"Angleterre",ca:130,pa:176,v:"20 M€",wk:true},
-  {n:"Arda Güler",a:19,p:"MO/AD",c:"Real Madrid",na:"Turquie",ca:152,pa:180,v:"30 M€",wk:true},
-  {n:"Kenan Yıldız",a:20,p:"MO/AG",c:"Juventus",na:"Turquie",ca:148,pa:176,v:"35 M€",wk:true},
-  {n:"Gilberto Mora",a:16,p:"MO",c:"Club Tijuana",na:"Mexique",ca:115,pa:175,v:"8 M€",wk:true,bn:true},
-  {n:"Abdellah Ouzane",a:17,p:"MC",c:"Ajax",na:"Maroc",ca:120,pa:172,v:"5 M€",wk:true,bn:true},
-  {n:"Nathan De Cat",a:18,p:"MC",c:"Anderlecht",na:"Belgique",ca:125,pa:168,v:"6 M€",wk:true,bn:true},
+// ATTAQUANTS - 35
+{n:"Harry Kane",a:31,g:"ST",c:"Bayern Munich",t:"Angleterre",ca:188,pa:190,v:"100M€"},
+{n:"Erling Haaland",a:24,g:"ST",c:"Manchester City",t:"Norvège",ca:184,pa:193,v:"180M€"},
+{n:"Lautaro Martínez",a:27,g:"ST",c:"Inter Milan",t:"Argentine",ca:175,pa:179,v:"75M€"},
+{n:"Victor Osimhen",a:26,g:"ST",c:"Galatasaray",t:"Nigéria",ca:172,pa:180,v:"55M€"},
+{n:"Alexander Isak",a:25,g:"ST",c:"Newcastle",t:"Suède",ca:171,pa:184,v:"80M€"},
+{n:"Rodrigo Mora",a:18,g:"ST/AG",c:"FC Porto",t:"Portugal",ca:165,pa:186,v:"40M€",wk:1},
+{n:"Benjamin Šeško",a:22,g:"ST",c:"RB Leipzig",t:"Slovénie",ca:160,pa:184,v:"50M€"},
+{n:"Rasmus Højlund",a:22,g:"ST",c:"Manchester United",t:"Danemark",ca:158,pa:182,v:"45M€"},
+{n:"Endrick",a:19,g:"ST/AG",c:"Real Madrid",t:"Brésil",ca:158,pa:188,v:"55M€",wk:1},
+{n:"Mathys Tel",a:19,g:"ST/AD",c:"Tottenham",t:"France",ca:154,pa:182,v:"35M€",wk:1},
+{n:"Francesco Camarda",a:16,g:"ST",c:"AC Milan",t:"Italie",ca:140,pa:188,v:"18M€",wk:1,bn:1},
+{n:"Evan Ferguson",a:20,g:"ST",c:"Brighton",t:"Irlande",ca:152,pa:180,v:"32M€",wk:1},
+{n:"Eli Junior Kroupi",a:19,g:"ST",c:"Bournemouth",t:"France",ca:145,pa:178,v:"28M€",wk:1},
+{n:"Vitor Roque",a:20,g:"ST",c:"Palmeiras",t:"Brésil",ca:148,pa:182,v:"35M€",wk:1},
+{n:"Chido Obi-Martin",a:17,g:"ST",c:"Manchester United",t:"Danemark",ca:125,pa:178,v:"10M€",wk:1,bn:1},
+{n:"Dastan Satpayev",a:17,g:"ST",c:"FC Kairat",t:"Kazakhstan",ca:100,pa:174,v:"0,8M€",wk:1,bn:1},
+{n:"Daulet Orynbasar",a:18,g:"ST",c:"FC Kairat",t:"Kazakhstan",ca:105,pa:170,v:"0,6M€",wk:1,bn:1},
+{n:"Jonathan David",a:25,g:"ST",c:"Lille",t:"Canada",ca:164,pa:170,v:"45M€"},
+{n:"Dušan Vlahović",a:25,g:"ST",c:"Juventus",t:"Serbie",ca:165,pa:174,v:"48M€"},
+{n:"Samu Omorodion",a:21,g:"ST",c:"FC Porto",t:"Espagne",ca:150,pa:178,v:"28M€"},
+{n:"Kolo Muani",a:26,g:"ST/AD",c:"PSG",t:"France",ca:162,pa:174,v:"42M€"},
+{n:"Karim Benzema",a:38,g:"ST",c:"Al-Ittihad",t:"France",ca:165,pa:170,v:"8M€"},
+{n:"Robert Lewandowski",a:36,g:"ST",c:"FC Barcelona",t:"Pologne",ca:172,pa:176,v:"10M€"},
+{n:"Santiago Giménez",a:24,g:"ST",c:"AC Milan",t:"Mexique",ca:160,pa:174,v:"35M€"},
+{n:"Lois Openda",a:25,g:"ST",c:"RB Leipzig",t:"Belgique",ca:164,pa:174,v:"40M€"},
+{n:"Ollie Watkins",a:29,g:"ST",c:"Aston Villa",t:"Angleterre",ca:166,pa:172,v:"45M€"},
+{n:"Serhou Guirassy",a:29,g:"ST",c:"Borussia Dortmund",t:"Guinée",ca:168,pa:172,v:"35M€"},
+{n:"Mohamed Kudus",a:24,g:"MO/ST",c:"West Ham",t:"Ghana",ca:164,pa:178,v:"55M€"},
+{n:"Nicolas Jackson",a:24,g:"ST",c:"Chelsea",t:"Sénégal",ca:160,pa:176,v:"35M€"},
+{n:"Julián Álvarez",a:25,g:"ST/MO",c:"Atlético Madrid",t:"Argentine",ca:170,pa:182,v:"70M€"},
+{n:"Gabriel Jesus",a:28,g:"ST/AG",c:"Arsenal",t:"Brésil",ca:166,pa:176,v:"40M€"},
+{n:"Marcos Leonardo",a:22,g:"ST",c:"Benfica",t:"Brésil",ca:152,pa:176,v:"30M€"},
+{n:"Hugo Ekitike",a:22,g:"ST",c:"Frankfurt",t:"France",ca:148,pa:176,v:"22M€"},
+{n:"Mason Greenwood",a:23,g:"AD/ST",c:"Marseille",t:"Angleterre",ca:158,pa:178,v:"35M€"},
+{n:"Youssoufa Moukoko",a:20,g:"ST",c:"Nice",t:"Allemagne",ca:150,pa:178,v:"22M€",wk:1},
 
-  // AILIERS (20)
-  {n:"Kylian Mbappé",a:26,p:"AG/ST",c:"Real Madrid",na:"France",ca:191,pa:195,v:"200 M€"},
-  {n:"Mohamed Salah",a:33,p:"AD/ST",c:"Liverpool",na:"Égypte",ca:186,pa:188,v:"60 M€"},
-  {n:"Ousmane Dembélé",a:28,p:"AD/AG",c:"PSG",na:"France",ca:185,pa:188,v:"80 M€"},
-  {n:"Vinícius Júnior",a:24,p:"AG/ST",c:"Real Madrid",na:"Brésil",ca:183,pa:192,v:"160 M€"},
-  {n:"Bukayo Saka",a:23,p:"AD/AG",c:"Arsenal",na:"Angleterre",ca:181,pa:188,v:"150 M€"},
-  {n:"Rodrygo",a:24,p:"AD/AG",c:"Real Madrid",na:"Brésil",ca:174,pa:182,v:"90 M€"},
-  {n:"Phil Foden",a:25,p:"MO/AD",c:"Manchester City",na:"Angleterre",ca:175,pa:180,v:"95 M€"},
-  {n:"Raphinha",a:28,p:"AD",c:"FC Barcelona",na:"Brésil",ca:167,pa:173,v:"45 M€"},
-  {n:"Kingsley Coman",a:29,p:"AD/AG",c:"Bayern Munich",na:"France",ca:167,pa:174,v:"35 M€"},
-  {n:"Leroy Sané",a:29,p:"AD/AG",c:"Bayern Munich",na:"Allemagne",ca:169,pa:175,v:"42 M€"},
-  {n:"Gabriel Martinelli",a:24,p:"AG",c:"Arsenal",na:"Brésil",ca:166,pa:178,v:"55 M€"},
-  {n:"Khvicha Kvaratskhelia",a:24,p:"AG",c:"PSG",na:"Géorgie",ca:168,pa:180,v:"70 M€"},
-  {n:"Alejandro Garnacho",a:20,p:"AG/AD",c:"Manchester United",na:"Argentine",ca:162,pa:182,v:"50 M€",wk:true},
-  {n:"Savinho",a:21,p:"AD/AG",c:"Manchester City",na:"Brésil",ca:158,pa:178,v:"45 M€",wk:true},
-  {n:"Désiré Doué",a:19,p:"AG/AD",c:"PSG",na:"France",ca:150,pa:178,v:"35 M€",wk:true},
-  {n:"Estêvão",a:18,p:"AD/AG",c:"Chelsea",na:"Brésil",ca:140,pa:182,v:"40 M€",wk:true},
-  {n:"Julien Duranville",a:19,p:"AD/AG",c:"Borussia Dortmund",na:"Belgique",ca:142,pa:176,v:"25 M€",wk:true},
-  {n:"Ben Doak",a:19,p:"AD",c:"Liverpool",na:"Écosse",ca:138,pa:179,v:"22 M€",wk:true},
-  {n:"Rio Ngumoha",a:16,p:"AG",c:"Liverpool",na:"Angleterre",ca:110,pa:172,v:"8 M€",wk:true,bn:true},
-  {n:"Amara Diouf",a:16,p:"AG",c:"Metz",na:"Sénégal",ca:105,pa:172,v:"1,5 M€",wk:true,bn:true},
-  {n:"Assane Diao",a:19,p:"AD/AG",c:"Como",na:"Espagne",ca:145,pa:179,v:"20 M€",wk:true},
-  {n:"Geovany Quenda",a:18,p:"AD/ST",c:"Sporting CP",na:"Portugal",ca:148,pa:178,v:"20 M€",wk:true},
-
-  // ATTAQUANTS (25)
-  {n:"Harry Kane",a:31,p:"ST",c:"Bayern Munich",na:"Angleterre",ca:188,pa:190,v:"100 M€"},
-  {n:"Erling Haaland",a:24,p:"ST",c:"Manchester City",na:"Norvège",ca:184,pa:193,v:"180 M€"},
-  {n:"Lautaro Martínez",a:27,p:"ST",c:"Inter Milan",na:"Argentine",ca:175,pa:179,v:"75 M€"},
-  {n:"Victor Osimhen",a:26,p:"ST",c:"Galatasaray",na:"Nigéria",ca:172,pa:180,v:"55 M€"},
-  {n:"Alexander Isak",a:25,p:"ST",c:"Newcastle",na:"Suède",ca:171,pa:182,v:"80 M€"},
-  {n:"Rodrigo Mora",a:18,p:"ST/AG",c:"FC Porto",na:"Portugal",ca:165,pa:185,v:"40 M€",wk:true},
-  {n:"Benjamin Šeško",a:22,p:"ST",c:"RB Leipzig",na:"Slovénie",ca:160,pa:182,v:"50 M€"},
-  {n:"Rasmus Højlund",a:22,p:"ST",c:"Manchester United",na:"Danemark",ca:158,pa:180,v:"45 M€"},
-  {n:"Jonathan David",a:25,p:"ST",c:"Lille",na:"Canada",ca:164,pa:170,v:"45 M€"},
-  {n:"Dušan Vlahović",a:25,p:"ST",c:"Juventus",na:"Serbie",ca:165,pa:174,v:"48 M€"},
-  {n:"Marcus Rashford",a:27,p:"AG/ST",c:"Manchester United",na:"Angleterre",ca:162,pa:174,v:"40 M€"},
-  {n:"Endrick",a:19,p:"ST/AG",c:"Real Madrid",na:"Brésil",ca:158,pa:185,v:"55 M€",wk:true},
-  {n:"Mathys Tel",a:19,p:"ST/AD",c:"Tottenham",na:"France",ca:154,pa:180,v:"35 M€",wk:true},
-  {n:"Francesco Camarda",a:16,p:"ST",c:"AC Milan",na:"Italie",ca:140,pa:185,v:"18 M€",wk:true,bn:true},
-  {n:"Evan Ferguson",a:20,p:"ST",c:"Brighton",na:"Irlande",ca:152,pa:178,v:"32 M€",wk:true},
-  {n:"Eli Junior Kroupi",a:19,p:"ST",c:"Bournemouth",na:"France",ca:145,pa:176,v:"28 M€",wk:true},
-  {n:"Vitor Roque",a:20,p:"ST",c:"Palmeiras",na:"Brésil",ca:148,pa:180,v:"35 M€",wk:true},
-  {n:"Chido Obi-Martin",a:17,p:"ST",c:"Manchester United",na:"Danemark",ca:125,pa:176,v:"10 M€",wk:true,bn:true},
-  {n:"Samu Omorodion",a:21,p:"ST",c:"FC Porto",na:"Espagne",ca:150,pa:176,v:"28 M€"},
-  {n:"Kolo Muani",a:26,p:"ST/AD",c:"PSG",na:"France",ca:162,pa:174,v:"42 M€"},
-  {n:"Karim Benzema",a:38,p:"ST",c:"Al-Ittihad",na:"France",ca:165,pa:170,v:"8 M€"},
-  {n:"Dastan Satpayev",a:17,p:"ST",c:"FC Kairat",na:"Kazakhstan",ca:100,pa:172,v:"800 K€",wk:true,bn:true},
-  {n:"Daulet Orynbasar",a:18,p:"ST",c:"FC Kairat",na:"Kazakhstan",ca:105,pa:168,v:"600 K€",wk:true,bn:true},
-  {n:"Lamine Yamal",a:17,p:"AD/AG",c:"FC Barcelona",na:"Espagne",ca:186,pa:196,v:"180 M€",wk:true},
+// PÉPITES SUPPLÉMENTAIRES - 40
+{n:"Gabriel Mec",a:16,g:"MO",c:"Palmeiras",t:"Brésil",ca:108,pa:180,v:"15M€",wk:1,bn:1},
+{n:"Luis Guilherme",a:19,g:"AD",c:"West Ham",t:"Brésil",ca:135,pa:176,v:"18M€",wk:1},
+{n:"Matías Soule",a:22,g:"AD/AG",c:"Roma",t:"Argentine",ca:148,pa:176,v:"22M€",wk:1},
+{n:"Facundo Buonanotte",a:20,g:"MO",c:"Leicester",t:"Argentine",ca:142,pa:176,v:"18M€",wk:1},
+{n:"Alejandro Balde",a:21,g:"DG",c:"FC Barcelona",t:"Espagne",ca:154,pa:178,v:"35M€",wk:1},
+{n:"Mika Godts",a:19,g:"AG",c:"Ajax",t:"Belgique",ca:135,pa:174,v:"12M€",wk:1},
+{n:"Gerardo Gagua",a:17,g:"ST",c:"Dinamo Tbilisi",t:"Géorgie",ca:105,pa:172,v:"1,2M€",wk:1,bn:1},
+{n:"Konrad Łaski",a:17,g:"MC",c:"Legia Varsovie",t:"Pologne",ca:110,pa:170,v:"1,5M€",wk:1,bn:1},
+{n:"Abdoulaye Ndiaye",a:17,g:"DC",c:"Génération Foot",t:"Sénégal",ca:112,pa:174,v:"1,8M€",wk:1,bn:1},
+{n:"Samba Diallo",a:18,g:"AG",c:"Metz",t:"Sénégal",ca:118,pa:172,v:"2,5M€",wk:1,bn:1},
+{n:"Lucas Gourna-Douath",a:21,g:"MD",c:"Red Bull Salzbourg",t:"France",ca:142,pa:176,v:"18M€",wk:1},
+{n:"Oscar Gloukh",a:21,g:"MO",c:"RB Salzbourg",t:"Israël",ca:148,pa:178,v:"22M€",wk:1},
+{n:"Karim Konaté",a:21,g:"ST",c:"RB Salzbourg",t:"CôtedIvoire",ca:145,pa:176,v:"20M€",wk:1},
+{n:"Dario Essugo",a:19,g:"MD",c:"Chelsea",t:"Portugal",ca:130,pa:174,v:"10M€",wk:1},
+{n:"Thiago",a:18,g:"MC",c:"Palmeiras",t:"Brésil",ca:122,pa:176,v:"12M€",wk:1},
+{n:"Andrey",a:17,g:"MC",c:"Palmeiras",t:"Brésil",ca:115,pa:174,v:"10M€",wk:1,bn:1},
+{n:"Endrick Felipe",a:19,g:"ST",c:"Real Madrid",t:"Brésil",ca:158,pa:188,v:"55M€",wk:1},
+{n:"Lorenzo Pirola",a:23,g:"DC",c:"Salernitana",t:"Italie",ca:148,pa:170,v:"15M€"},
+{n:"Wilfried Gnonto",a:21,g:"AG/ST",c:"Leeds",t:"Italie",ca:148,pa:176,v:"22M€",wk:1},
+{n:"Johan Mojica",a:20,g:"DG",c:"AC Milan",t:"Colombie",ca:132,pa:172,v:"10M€",wk:1},
+{n:"Nelson Weiper",a:19,g:"ST",c:"Mainz",t:"Allemagne",ca:138,pa:176,v:"15M€",wk:1},
+{n:"Tom Bischof",a:19,g:"MC",c:"Hoffenheim",t:"Allemagne",ca:135,pa:174,v:"12M€",wk:1},
+{n:"Noah Darvich",a:18,g:"MO",c:"Fribourg",t:"Allemagne",ca:128,pa:174,v:"10M€",wk:1},
+{n:"Eric da Silva Moreira",a:19,g:"AD",c:"Nottingham Forest",t:"Allemagne",ca:125,pa:172,v:"8M€",wk:1},
+{n:"Rayan Aït-Nouri",a:22,g:"DG",c:"Wolverhampton",t:"France",ca:152,pa:176,v:"28M€"},
+{n:"Eddie Salcedo",a:22,g:"ST",c:"Inter Milan",t:"Italie",ca:142,pa:170,v:"12M€"},
+{n:"Gabriel Borié",a:18,g:"ST",c:"América Mineiro",t:"Brésil",ca:115,pa:172,v:"5M€",wk:1,bn:1},
+{n:"Deivid Washington",a:19,g:"ST",c:"Chelsea",t:"Brésil",ca:128,pa:176,v:"12M€",wk:1},
+{n:"Ângelo",a:20,g:"AD/AG",c:"Chelsea",t:"Brésil",ca:142,pa:174,v:"15M€",wk:1},
+{n:"Matías Acuña",a:17,g:"MC",c:"Defensa y Justicia",t:"Argentine",ca:108,pa:170,v:"1,5M€",wk:1,bn:1},
+{n:"Lautaro Díaz",a:17,g:"ST",c:"River Plate",t:"Argentine",ca:112,pa:172,v:"2M€",wk:1,bn:1},
+{n:"Gianluca Prestianni",a:19,g:"AD/AG",c:"Benfica",t:"Argentine",ca:138,pa:176,v:"18M€",wk:1},
+{n:"Luka Romero",a:20,g:"AD/MO",c:"AC Milan",t:"Argentine",ca:145,pa:172,v:"15M€"},
+{n:"Cristian Medina",a:21,g:"MC",c:"Boca Juniors",t:"Argentine",ca:148,pa:176,v:"20M€",wk:1},
+{n:"Valentín Barco",a:20,g:"DG/MG",c:"Brighton",t:"Argentine",ca:145,pa:178,v:"22M€",wk:1},
+{n:"Ezequiel Fernández",a:22,g:"MD",c:"Boca Juniors",t:"Argentine",ca:150,pa:172,v:"18M€"},
+{n:"Pablo Solari",a:22,g:"AD",c:"River Plate",t:"Argentine",ca:148,pa:172,v:"16M€"},
+{n:"Nahuel Bustos",a:23,g:"ST",c:"Talleres",t:"Argentine",ca:145,pa:168,v:"12M€"},
+{n:"Rodrigo Villagra",a:23,g:"MD",c:"River Plate",t:"Argentine",ca:145,pa:170,v:"14M€"},
+{n:"Facundo Farías",a:22,g:"MO/ST",c:"Inter Miami",t:"Argentine",ca:148,pa:174,v:"15M€"},
+{n:"Alexis Véliz",a:20,g:"ST",c:"Sevilla",t:"Argentine",ca:135,pa:174,v:"12M€",wk:1},
+{n:"Lautaro Milán",a:18,g:"ST",c:"UNIÓN",t:"Argentine",ca:115,pa:170,v:"1,8M€",wk:1,bn:1},
+{n:"Franco Carboni",a:21,g:"DG/MG",c:"Inter Milan",t:"Argentine",ca:138,pa:170,v:"10M€"},
+{n:"Valentín Gómez",a:20,g:"DC",c:"Vélez",t:"Argentine",ca:142,pa:176,v:"18M€",wk:1},
+{n:"Ian Subiabre",a:17,g:"AG",c:"River Plate",t:"Argentine",ca:110,pa:172,v:"2M€",wk:1,bn:1},
+{n:"Agustín Giay",a:21,g:"DD",c:"Palmeiras",t:"Argentine",ca:145,pa:174,v:"16M€",wk:1},
+{n:"Gianni Infantino",a:17,g:"MC",c:"FC Zurich",t:"Suisse",ca:105,pa:168,v:"1M€",wk:1,bn:1},
+{n:"Andreas Schjelderup",a:21,g:"AG/AD",c:"Benfica",t:"Norvège",ca:142,pa:176,v:"15M€",wk:1},
+{n:"Sander Berge",a:27,g:"MC",c:"Fulham",t:"Norvège",ca:152,pa:166,v:"18M€"},
+{n:"Jørgen Strand Larsen",a:25,g:"ST",c:"Wolverhampton",t:"Norvège",ca:152,pa:172,v:"20M€"},
+{n:"Mason Mount",a:26,g:"MO",c:"Manchester United",t:"Angleterre",ca:162,pa:174,v:"35M€"},
+{n:"Conor Gallagher",a:25,g:"MC",c:"Atlético Madrid",t:"Angleterre",ca:158,pa:172,v:"30M€"},
+{n:"Harvey Elliott",a:22,g:"MO/AD",c:"Liverpool",t:"Angleterre",ca:155,pa:176,v:"28M€"},
+{n:"Lewis Hall",a:20,g:"DG/MC",c:"Newcastle",t:"Angleterre",ca:148,pa:176,v:"22M€",wk:1},
+{n:"Romeo Lavia",a:21,g:"MD",c:"Chelsea",t:"Belgique",ca:148,pa:178,v:"30M€",wk:1},
+{n:"Carney Chukwuemeka",a:21,g:"MC/MO",c:"Chelsea",t:"Angleterre",ca:145,pa:176,v:"20M€",wk:1},
+{n:"Ethan Ampadu",a:24,g:"DC/MD",c:"Leeds",t:"PaysDeGalles",ca:150,pa:170,v:"15M€"},
+{n:"Dan Ndoye",a:24,g:"AD/AG",c:"Bologne",t:"Suisse",ca:150,pa:168,v:"18M€"},
+{n:"Zeki Amdouni",a:24,g:"ST/MO",c:"Benfica",t:"Suisse",ca:148,pa:172,v:"16M€"},
+{n:"Ruben Vargas",a:26,g:"AG",c:"FC Augsburg",t:"Suisse",ca:150,pa:165,v:"12M€"},
+{n:"Eray Cömert",a:27,g:"DC",c:"Valence",t:"Suisse",ca:145,pa:162,v:"10M€"},
+{n:"Arne Engels",a:21,g:"MC",c:"FC Augsburg",t:"Belgique",ca:142,pa:174,v:"15M€",wk:1},
+{n:"Arthur Vermeeren",a:20,g:"MC",c:"RB Leipzig",t:"Belgique",ca:145,pa:178,v:"25M€",wk:1},
+{n:"Bilal El Khannous",a:21,g:"MO",c:"Leicester",t:"Maroc",ca:148,pa:178,v:"20M€",wk:1},
+{n:"Lamine Camará",a:20,g:"MC",c:"Marseille",t:"Sénégal",ca:135,pa:172,v:"12M€",wk:1},
+{n:"Elye Wahi",a:22,g:"ST",c:"Marseille",t:"France",ca:152,pa:176,v:"28M€"},
+{n:"Amine Gouiri",a:25,g:"ST/AG",c:"Marseille",t:"France",ca:160,pa:174,v:"30M€"},
+{n:"Lens",a:18,g:"AG",c:"Génération Foot",t:"Sénégal",ca:115,pa:170,v:"1,2M€",wk:1,bn:1},
+{n:"Matar Sarr",a:22,g:"MC",c:"Tottenham",t:"Sénégal",ca:150,pa:176,v:"25M€"},
+{n:"Lamine Sarr",a:17,g:"ST",c:"Mbour Petite Côte",t:"Sénégal",ca:108,pa:170,v:"0,8M€",wk:1,bn:1},
+{n:"Hamza Sadli",a:17,g:"MO",c:"Algérie",t:"Algérie",ca:105,pa:168,v:"1M€",wk:1,bn:1},
+{n:"Ismaël Koné",a:22,g:"MC",c:"Marseille",t:"Canada",ca:148,pa:176,v:"18M€",wk:1},
+{n:"Tajon Buchanan",a:25,g:"AD/DG",c:"Inter Milan",t:"Canada",ca:150,pa:168,v:"16M€"},
+{n:"Jonathan Sirois",a:23,g:"GK",c:"CF Montréal",t:"Canada",ca:135,pa:165,v:"5M€"},
+{n:"Ruben Loftus-Cheek",a:29,g:"MC",c:"AC Milan",t:"Angleterre",ca:158,pa:170,v:"22M€"},
+{n:"Pierre Kalulu",a:25,g:"DC/DD",c:"AC Milan",t:"France",ca:158,pa:172,v:"25M€"},
+{n:"Fikayo Tomori",a:27,g:"DC",c:"AC Milan",t:"Angleterre",ca:162,pa:172,v:"30M€"},
+{n:"Malick Thiaw",a:23,g:"DC",c:"AC Milan",t:"Allemagne",ca:155,pa:176,v:"30M€"},
+{n:"Strahinja Pavlović",a:24,g:"DC",c:"AC Milan",t:"Serbie",ca:152,pa:174,v:"22M€"},
+{n:"Yunus Musah",a:22,g:"MC/AD",c:"AC Milan",t:"États-Unis",ca:150,pa:176,v:"22M€",wk:1},
+{n:"Christian Pulisic",a:26,g:"AD/AG",c:"AC Milan",t:"États-Unis",ca:162,pa:174,v:"35M€"},
+{n:"Weston McKennie",a:26,g:"MC",c:"Juventus",t:"États-Unis",ca:158,pa:170,v:"25M€"},
+{n:"Tyler Adams",a:26,g:"MD",c:"Bournemouth",t:"États-Unis",ca:155,pa:170,v:"20M€"},
+{n:"Gio Reyna",a:22,g:"MO",c:"Borussia Dortmund",t:"États-Unis",ca:152,pa:178,v:"30M€",wk:1},
+{n:"Tim Weah",a:25,g:"AD/ST",c:"Juventus",t:"États-Unis",ca:148,pa:166,v:"15M€"},
+{n:"Folarin Balogun",a:23,g:"ST",c:"AS Monaco",t:"États-Unis",ca:152,pa:176,v:"25M€"},
+{n:"Ricardo Pepi",a:22,g:"ST",c:"PSV",t:"États-Unis",ca:148,pa:176,v:"20M€",wk:1},
+{n:"Cade Cowell",a:21,g:"AG/ST",c:"Chivas",t:"États-Unis",ca:142,pa:174,v:"15M€",wk:1},
+{n:"Paxten Aaronson",a:21,g:"MO",c:"FC Utrecht",t:"États-Unis",ca:140,pa:172,v:"12M€",wk:1},
+{n:"Jack McGlynn",a:21,g:"MC",c:"Philadelphia",t:"États-Unis",ca:138,pa:172,v:"10M€",wk:1},
+{n:"Diego Luna",a:21,g:"MO",c:"Real Salt Lake",t:"États-Unis",ca:138,pa:172,v:"8M€",wk:1},
+{n:"Lennard Maloney",a:25,g:"MD/DC",c:"Heidenheim",t:"États-Unis",ca:145,pa:165,v:"12M€"},
+{n:"Brenden Aaronson",a:24,g:"MO",c:"Leeds",t:"États-Unis",ca:150,pa:172,v:"18M€"},
+{n:"Vinicius Tobias",a:20,g:"DD",c:"Real Madrid",t:"Brésil",ca:135,pa:174,v:"12M€",wk:1},
+{n:"Matheus França",a:21,g:"MO",c:"Crystal Palace",t:"Brésil",ca:148,pa:178,v:"22M€",wk:1},
+{n:"Andrey Santos",a:21,g:"MC",c:"Chelsea",t:"Brésil",ca:148,pa:178,v:"22M€",wk:1},
+{n:"Marcos Leonardo",a:22,g:"ST",c:"Benfica",t:"Brésil",ca:152,pa:176,v:"28M€"},
+{n:"Matheus Nascimento",a:20,g:"ST",c:"Botafogo",t:"Brésil",ca:140,pa:176,v:"15M€",wk:1},
+{n:"Vitor Roque",a:20,g:"ST",c:"Palmeiras",t:"Brésil",ca:148,pa:182,v:"35M€",wk:1},
+{n:"Marquinhos Gabriel",a:17,g:"AD",c:"São Paulo",t:"Brésil",ca:115,pa:174,v:"8M€",wk:1,bn:1},
+{n:"Pedro Lima",a:18,g:"DD",c:"Chelsea",t:"Brésil",ca:132,pa:174,v:"15M€",wk:1},
+{n:"Estevão Willian",a:17,g:"AD",c:"Palmeiras",t:"Brésil",ca:130,pa:182,v:"25M€",wk:1},
+{n:"Kaiky",a:21,g:"DC",c:"Almería",t:"Brésil",ca:142,pa:174,v:"15M€",wk:1},
+{n:"Matías Arezo",a:23,g:"ST",c:"Granada",t:"Uruguay",ca:148,pa:170,v:"12M€"},
+{n:"Luciano Rodríguez",a:21,g:"ST/AD",c:"Liverpool M",t:"Uruguay",ca:145,pa:176,v:"18M€",wk:1},
+{n:"Facundo Pellistri",a:23,g:"AD",c:"Manchester United",t:"Uruguay",ca:152,pa:174,v:"20M€"},
+{n:"Manuel Ugarte",a:24,g:"MD",c:"Manchester United",t:"Uruguay",ca:162,pa:174,v:"35M€"},
+{n:"Nicolás de la Cruz",a:28,g:"MO",c:"Flamengo",t:"Uruguay",ca:160,pa:170,v:"22M€"},
+{n:"Bentancur",a:28,g:"MC",c:"Tottenham",t:"Uruguay",ca:162,pa:172,v:"28M€"},
+{n:"Fabricio Díaz",a:21,g:"MC",c:"Liverpool",t:"Uruguay",ca:142,pa:174,v:"15M€",wk:1},
+{n:"Alan Matturro",a:20,g:"DC",c:"Genoa",t:"Uruguay",ca:138,pa:172,v:"12M€",wk:1},
+{n:"Damián García",a:21,g:"MD",c:"Peñarol",t:"Uruguay",ca:135,pa:172,v:"8M€",wk:1},
+{n:"Tiago Palacios",a:21,g:"MC",c:"Estudiantes",t:"Argentine",ca:138,pa:170,v:"8M€",wk:1},
+{n:"Mateo Cassierra",a:27,g:"ST",c:"Zenit",t:"Colombie",ca:155,pa:168,v:"15M€"},
+{n:"Jhon Arias",a:27,g:"AD",c:"Flamengo",t:"Colombie",ca:162,pa:170,v:"22M€"},
+{n:"Luis Díaz",a:28,g:"AG",c:"Liverpool",t:"Colombie",ca:174,pa:180,v:"55M€"},
+{n:"Jhon Durán",a:21,g:"ST",c:"Aston Villa",t:"Colombie",ca:150,pa:178,v:"25M€",wk:1},
+{n:"Yaser Asprilla",a:21,g:"MO/AD",c:"Watford",t:"Colombie",ca:148,pa:178,v:"22M€",wk:1},
+{n:"Ian Poveda",a:25,g:"AD",c:"Leeds",t:"Colombie",ca:145,pa:168,v:"12M€"},
+{n:"Devis Vásquez",a:22,g:"GK",c:"AC Milan",t:"Colombie",ca:135,pa:168,v:"5M€"},
+{n:"Nélson Semedo",a:31,g:"DD",c:"Wolverhampton",t:"Portugal",ca:152,pa:162,v:"10M€"},
+{n:"Nuno Tavares",a:25,g:"DG",c:"Lazio",t:"Portugal",ca:150,pa:172,v:"15M€"},
+{n:"Gonçalo Ramos",a:23,g:"ST",c:"PSG",t:"Portugal",ca:162,pa:180,v:"45M€"},
+{n:"João Félix",a:25,g:"MO/ST",c:"Chelsea",t:"Portugal",ca:170,pa:180,v:"45M€"},
+{n:"Rafael Leão",a:25,g:"AG",c:"AC Milan",t:"Portugal",ca:172,pa:182,v:"75M€"},
+{n:"Francisco Trincão",a:25,g:"AD",c:"Sporting CP",t:"Portugal",ca:156,pa:172,v:"20M€"},
+{n:"Hugo Félix",a:21,g:"MO",c:"Benfica",t:"Portugal",ca:138,pa:172,v:"12M€",wk:1},
+{n:"Cher Ndour",a:21,g:"MC",c:"PSG",t:"Portugal",ca:140,pa:176,v:"15M€",wk:1},
+{n:"Tiago Tomás",a:23,g:"ST",c:"Sporting CP",t:"Portugal",ca:148,pa:172,v:"16M€"},
+{n:"Diego Moreira",a:20,g:"AD",c:"Chelsea",t:"Portugal",ca:135,pa:174,v:"12M€",wk:1},
+{n:"Iván Jaime",a:24,g:"MO",c:"FC Porto",t:"Espagne",ca:152,pa:174,v:"18M€"},
+{n:"Fabio Silva",a:22,g:"ST",c:"Wolverhampton",t:"Portugal",ca:145,pa:176,v:"18M€"},
+{n:"Vítor Roque",a:20,g:"ST",c:"Palmeiras",t:"Brésil",ca:148,pa:182,v:"35M€",wk:1},
+{n:"Luis Guilherme",a:19,g:"AD",c:"West Ham",t:"Brésil",ca:135,pa:176,v:"18M€",wk:1},
+{n:"Ricardo Calafiori",a:23,g:"DC/LB",c:"Arsenal",t:"Italie",ca:152,pa:176,v:"28M€"},
+{n:"Gianluca Di Lorenzo",a:30,g:"DD",c:"Napoli",t:"Italie",ca:160,pa:165,v:"15M€"},
+{n:"Federico Dimarco",a:27,g:"DG",c:"Inter Milan",t:"Italie",ca:165,pa:172,v:"35M€"},
+{n:"Nicolò Barella",a:28,g:"MC",c:"Inter Milan",t:"Italie",ca:172,pa:176,v:"55M€"},
+{n:"Lorenzo Pellegrini",a:29,g:"MO",c:"Roma",t:"Italie",ca:162,pa:172,v:"30M€"},
+{n:"Nicolò Zaniolo",a:25,g:"MO/ST",c:"Galatasaray",t:"Italie",ca:158,pa:176,v:"28M€"},
+{n:"Cesare Casadei",a:22,g:"MC",c:"Chelsea",t:"Italie",ca:145,pa:176,v:"18M€",wk:1},
+{n:"Vincenzo De Marco",a:18,g:"DC",c:"Empoli",t:"Italie",ca:118,pa:170,v:"4M€",wk:1,bn:1},
+{n:"Giacomo Raspadori",a:25,g:"ST/MO",c:"Napoli",t:"Italie",ca:160,pa:174,v:"30M€"},
+{n:"Simone Pafundi",a:19,g:"MO",c:"Udinese",t:"Italie",ca:135,pa:176,v:"15M€",wk:1},
+{n:"Samuel Mbangula",a:19,g:"AG",c:"Juventus",t:"Belgique",ca:128,pa:172,v:"8M€",wk:1},
+{n:"Lamin Camara",a:20,g:"DC",c:"Metz",t:"Sénégal",ca:128,pa:170,v:"5M€",wk:1,bn:1},
+{n:"Mamadou Sarr",a:18,g:"DC",c:"Lyon",t:"Sénégal",ca:125,pa:174,v:"6M€",wk:1,bn:1},
+{n:"Soumaila Coulibaly",a:21,g:"DC",c:"Brest",t:"Mali",ca:145,pa:176,v:"18M€",wk:1},
+{n:"Yaya Fofana",a:17,g:"MC",c:"RC Abidjan",t:"CôtedIvoire",ca:108,pa:170,v:"0,8M€",wk:1,bn:1},
+{n:"Bénie Traoré",a:22,g:"ST",c:"Basel",t:"CôtedIvoire",ca:142,pa:172,v:"12M€"},
+{n:"Oumar Diakhité",a:17,g:"DC",c:"FC Barcelone",t:"Mali",ca:118,pa:176,v:"10M€",wk:1,bn:1},
+{n:"Moses Simon",a:28,g:"AG",c:"Nantes",t:"Nigéria",ca:158,pa:166,v:"15M€"},
+{n:"Victor Boniface",a:25,g:"ST",c:"Bayer Leverkusen",t:"Nigéria",ca:168,pa:178,v:"50M€"},
+{n:"Samuel Chukwueze",a:26,g:"AD",c:"AC Milan",t:"Nigéria",ca:160,pa:172,v:"25M€"},
+{n:"Kelechi Iheanacho",a:28,g:"ST",c:"Sevilla",t:"Nigéria",ca:158,pa:170,v:"18M€"},
+{n:"Wilfred Ndidi",a:28,g:"MD",c:"Leicester",t:"Nigéria",ca:160,pa:170,v:"18M€"},
+{n:"Raphael Onyedika",a:22,g:"MD",c:"Club Brugge",t:"Nigéria",ca:148,pa:174,v:"20M€",wk:1},
+{n:"Jeremiah St. Juste",a:28,g:"DC",c:"Sporting CP",t:"Nigéria",ca:152,pa:165,v:"12M€"},
+{n:"Tolu Arokodare",a:24,g:"ST",c:"Genk",t:"Nigéria",ca:148,pa:170,v:"15M€"},
+{n:"Gift Orban",a:22,g:"ST",c:"Lyon",t:"Nigéria",ca:150,pa:176,v:"22M€"},
+{n:"Rashidi",a:18,g:"ST",c:"Nigeria",t:"Nigéria",ca:110,pa:170,v:"0,5M€",wk:1,bn:1},
+{n:"Yoram Zague",a:17,g:"AD",c:"PSG",t:"France",ca:120,pa:174,v:"8M€",wk:1},
+{n:"Kylian Sildillia",a:23,g:"DD",c:"Fribourg",t:"France",ca:148,pa:170,v:"15M€"},
+{n:"Wesley Fofana",a:24,g:"DC",c:"Chelsea",t:"France",ca:158,pa:178,v:"30M€"},
+{n:"Axel Witsel",a:37,g:"DC/MD",c:"Atlético Madrid",t:"Belgique",ca:162,pa:170,v:"3M€"},
+{n:"Amadou Onana",a:23,g:"MD",c:"Aston Villa",t:"Belgique",ca:160,pa:178,v:"40M€"},
+{n:"Jérémy Doku",a:23,g:"AD",c:"Manchester City",t:"Belgique",ca:168,pa:180,v:"55M€"},
+{n:"Youri Tielemans",a:28,g:"MC",c:"Aston Villa",t:"Belgique",ca:166,pa:174,v:"30M€"},
+{n:"Leandro Trossard",a:30,g:"AG/ST",c:"Arsenal",t:"Belgique",ca:164,pa:170,v:"25M€"},
+{n:"Romelu Lukaku",a:32,g:"ST",c:"Napoli",t:"Belgique",ca:168,pa:174,v:"25M€"},
+{n:"Kevin De Bruyne",a:34,g:"MO",c:"Manchester City",t:"Belgique",ca:178,pa:184,v:"30M€"},
+{n:"Lois Openda",a:25,g:"ST",c:"RB Leipzig",t:"Belgique",ca:164,pa:174,v:"40M€"},
+{n:"Charles De Ketelaere",a:24,g:"MO/ST",c:"Atalanta",t:"Belgique",ca:155,pa:178,v:"30M€"},
+{n:"Julian Duranville",a:19,g:"AD",c:"Borussia Dortmund",t:"Belgique",ca:142,pa:178,v:"25M€",wk:1},
+{n:"Mario Stroeykens",a:20,g:"MO",c:"Anderlecht",t:"Belgique",ca:135,pa:172,v:"12M€",wk:1},
+{n:"Zeno Debast",a:21,g:"DC",c:"Sporting CP",t:"Belgique",ca:148,pa:176,v:"20M€",wk:1},
+{n:"Beste",a:17,g:"MC/MO",c:"Club Brugge",t:"Belgique",ca:115,pa:170,v:"3M€",wk:1,bn:1}
 ];
 
-const POS_ORDER = { GK:1, DEF:2, MID:3, AM:4, ST:5 };
-const POS_COLOR = {
-  GK:'pos-GK', DEF:'pos-DEF', MID:'pos-MID', AM:'pos-AM', ST:'pos-ST'
+const FLAG={
+France:"🇫🇷",Angleterre:"🇬🇧",Espagne:"🇪🇸",Portugal:"🇵🇹",Brésil:"🇧🇷",
+Norvège:"🇳🇴",PaysBas:"🇳🇱",Belgique:"🇧🇪",Égypte:"🇪🇬",Allemagne:"🇩🇪",
+Argentine:"🇦🇷",Suède:"🇸🇪",Grèce:"🇬🇷",Italie:"🇮🇹",Turquie:"🇹🇷",
+Croatie:"🇭🇷",Ukraine:"🇺🇦",Uruguay:"🇺🇾",Slovénie:"🇸🇮",Pologne:"🇵🇱",
+Danemark:"🇩🇰",Serbie:"🇷🇸",Suisse:"🇨🇭",Nigéria:"🇳🇬",Cameroun:"🇨🇲",
+Ghana:"🇬🇭",CôtedIvoire:"🇨🇮",Sénégal:"🇸🇳",Maroc:"🇲🇦",Algérie:"🇩🇿",
+Japon:"🇯🇵",CoréeSud:"🇰🇷",Australie:"🇦🇺",Irlande:"🇮🇪",Écosse:"🇬🇧",
+Géorgie:"🇬🇪",Kazakhstan:"🇰🇿",Mexique:"🇲🇽",Canada:"🇨🇦",Équateur:"🇪🇨",
+Chili:"🇨🇱",Colombie:"🇨🇴",Paraguay:"🇵🇾",Pérou:"🇵🇪",Venezuela:"🇻🇪",
+Mali:"🇲🇱",RDC:"🇨🇩",Angola:"🇦🇴",Zambie:"🇿🇲",AfriqueSud:"🇿🇦",
+Tunisie:"🇹🇳",Israël:"🇮🇱",Hongrie:"🇭🇺",Autriche:"🇦🇹",Slovaquie:"🇸🇰",
+Roumanie:"🇷🇴",Bulgarie:"🇧🇬",Guinée:"🇬🇳",SierraLeone:"🇸🇱",ÉtatsUnis:"🇺🇸",
+PaysDeGalles:"🏴󠁧󠁢󠁷󠁬󠁳󠁿"
 };
-function getPosGroup(p) {
-  if (/GK/i.test(p)) return 'GK';
-  if (/DC|DD|DG|LB|CB|RB|LCB|RCB|DM/i.test(p) && !/A[MGDRLST]/.test(p)) return 'DEF';
-  if (/MD|MC|MO|DM|CM|AMC/i.test(p) && !/A[DRLST]/.test(p) && !/ST/.test(p)) return 'MID';
-  if (/AG|AD|AM[RL]|MR|ML|A[DRL]/i.test(p) || /AD\/AG|AG\/ST/.test(p) && !/^ST$/.test(p)) return 'AM';
-  if (/ST|CF|A[C]/.test(p)) return 'ST';
-  return 'MID';
-}
 
-let currentPage = 1;
-const PER_PAGE = 30;
-let filteredPlayers = [];
+function fG(g){
+if(/GK/i.test(g))return'GK';
+if(/DC|DD|DG|LB|CB|RB|DM/i.test(g)&&!/A|ST/.test(g))return'DEF';
+if(/MD|MC|MO|DM|CM|AMC/i.test(g)&&!/A[DRL]|ST/.test(g))return'MID';
+if(/AG|AD|AM[RL]|MR|ML/.test(g)||/AD\/AG|AG\/ST/.test(g)&&!/^ST$/.test(g))return'AM';
+if(/ST|CF|FC/.test(g))return'ST';
+return'MID'}
 
-function filterTable() {
-  const search = document.getElementById('searchInput').value.toLowerCase();
-  const posFilter = document.getElementById('posFilter').value;
-  const catFilter = document.getElementById('catFilter').value;
-  const ageFilter = document.getElementById('ageFilter').value;
+const PO={GK:1,DEF:2,MID:3,AM:4,ST:5};
+const PC={GK:'p-GK',DEF:'p-DEF',MID:'p-MID',AM:'p-AM',ST:'p-ST'};
 
-  filteredPlayers = players.filter(p => {
-    if (search && !p.n.toLowerCase().includes(search) &&
-        !p.c.toLowerCase().includes(search) &&
-        !p.na.toLowerCase().includes(search) &&
-        !p.p.toLowerCase().includes(search)) return false;
-    if (posFilter && getPosGroup(p.p) !== posFilter) return false;
-    if (ageFilter) {
-      const [min, max] = ageFilter.split('-').map(Number);
-      if (p.a < min || p.a > max) return false;
-    }
-    if (catFilter === 'wk' && !p.wk) return false;
-    if (catFilter === 'bargain') {
-      const val = parseInt(p.v.replace(/[^\d]/g,''));
-      if (val > 15) return false;
-    }
-    if (catFilter === 'hidden' && !(p.ca <= 150 && p.pa >= 170)) return false;
-    if (catFilter === 'elite' && p.ca < 170) return false;
-    return true;
-  });
+let cp=1,fP=[],sD={};
 
-  currentPage = 1;
-  document.getElementById('totalCount').textContent = filteredPlayers.length;
-  renderTable();
-}
+function f(){
+const s=document.getElementById('srch').value.toLowerCase();
+const pf=document.getElementById('pf').value,cf=document.getElementById('cf').value,af=document.getElementById('af').value;
+fP=P.filter(p=>{
+if(s&&!p.n.toLowerCase().includes(s)&&!p.c.toLowerCase().includes(s)&&!p.t.toLowerCase().includes(s)&&!p.g.toLowerCase().includes(s))return 0;
+if(pf&&fG(p.g)!==pf)return 0;
+if(af){const[m,x]=af.split('-').map(Number);if(p.a<m||p.a>x)return 0}
+if(cf==='wk'&&!(p.wk&&p.a<=21&&p.pa>=175))return 0;
+if(cf==='bn'){const v=parseInt(p.v.replace(/[^\d]/g,''));if(v>10)return 0}
+if(cf==='hd'&&!(p.ca<=145&&p.pa>=170))return 0;
+if(cf==='el'&&p.ca<170)return 0;
+return 1});
+cp=1;document.getElementById('rc').textContent=fP.length;document.getElementById('totalCount').textContent=fP.length;r()}
 
-function renderTable() {
-  const tbody = document.getElementById('tableBody');
-  const start = (currentPage - 1) * PER_PAGE;
-  const end = Math.min(start + PER_PAGE, filteredPlayers.length);
-  const page = filteredPlayers.slice(start, end);
+function r(){
+const b=document.getElementById('b'),s=(cp-1)*30,e=Math.min(s+30,fP.length),pg=fP.slice(s,e);
+if(!pg.length){b.innerHTML='<tr><td colspan=10><div class=nr>Aucun joueur trouvé · <a href=https://fmplayer.net/players target=_blank>773k joueurs sur fmplayer.net</a></div></td></tr>';pg2();return}
+b.innerHTML=pg.map((p,i)=>{
+const pg2=fG(p.g),pc=PC[pg2]||'p-MID';
+const cp2=Math.min(p.ca/200*100,100),pp2=Math.min(p.pa/200*100,100);
+const fl=FLAG[p.t]||'🌍';const n=s+i+1;
+const iW=p.wk&&p.a<=21&&p.pa>=175,iB=parseInt(p.v.replace(/[^\d]/g,''))<5&&p.pa>=170&&p.a<=21,iH=p.ca<=140&&p.pa>=172&&p.a<=21&&!iW;
+let t='';
+if(iW)t+='<span class=tg tg-wk>⭐ WK</span> ';
+else if(p.pa>=175&&p.a<=21)t+='<span class=tg tg-wk>⭐ WK</span> ';
+if(iB)t+='<span class=tg tg-bn>💰</span> ';
+if(iH)t+='<span class=tg tg-hd>💎</span> ';
+const cc=p.ca>=170?'ch':p.ca>=150?'cm':'cl';
+return `<tr><td style=color:#484f58;font-weight:600>${n}</td><td><strong>${p.n}</strong></td><td>${p.a}</td><td><span class="pb ${pc}">${p.g}</span></td><td>${p.c}</td><td>${fl} ${p.t}</td><td><span class="${cc}">${p.ca}</span> <span class=cb style=width:${cp2}px></span></td><td><span style=color:#3fb950;font-weight:700>${p.pa}</span> <span class=pb2 style=width:${pp2}px></span></td><td class=v>${p.v}</td><td>${t}</td></tr>`}).join('');
+pg2()}
 
-  if (page.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="10"><div class="no-results">Aucun joueur trouvé. Modifie tes filtres ou va voir les 773k joueurs sur <a href="https://fmplayer.net/players" target="_blank">fmplayer.net</a></div></td></tr>';
-    renderPagination(); return;
-  }
+function pg2(){
+const tp=Math.ceil(fP.length/30),el=document.getElementById('pg');
+if(tp<=1){el.innerHTML='';return}
+el.innerHTML=`<button onclick="gp(${cp-1})" ${cp<=1?'disabled':''}>◀</button><span class=pi>${cp}/${tp}</span><button onclick="gp(${cp+1})" ${cp>=tp?'disabled':''}>▶</button>`}
 
-  tbody.innerHTML = page.map((p, i) => {
-    const pg = getPosGroup(p.p);
-    const pc = POS_COLOR[pg] || 'pos-MID';
-    const caPct = Math.min(p.ca / 200 * 100, 100);
-    const paPct = Math.min(p.pa / 200 * 100, 100);
-    const flag = FLAGS[p.na] || '🌍';
-    const num = start + i + 1;
-    const isWk = p.wk && p.a <= 21 && p.pa >= 175;
-    const isBargain = p.bn || (parseInt(p.v.replace(/[^\d]/g,'')) < 5 && p.pa >= 170 && p.a <= 21);
-    const isHidden = p.ca <= 145 && p.pa >= 170 && p.a <= 21 && !isWk;
+function gp(n){cp=Math.max(1,Math.min(n,Math.ceil(fP.length/30)));r();document.querySelector('.tw').scrollIntoView({behavior:'smooth',block:'start'})}
 
-    let tags = '';
-    if (isWk) tags += '<span class="wk-tag">⭐ WK</span> ';
-    else if (p.pa >= 175 && p.a <= 21) tags += '<span class="wk-tag">⭐ WK</span> ';
-    if (p.bn || (parseInt(p.v.replace(/[^\d]/g,'')) < 5 && p.pa >= 168 && p.a <= 21)) tags += '<span class="bargain-tag">💰</span> ';
-    if (isHidden) tags += '<span class="hidden-tag">💎</span> ';
+function s(col){
+const d=sD[col]==='a'?'d':'a';sD[col]=d;
+fP.sort((a,b)=>{
+const v=[()=>0,()=>a.n.localeCompare(b.n),()=>a.a-b.a,()=>(PO[fG(a.g)]||99)-(PO[fG(b.g)]||99),()=>a.c.localeCompare(b.c),()=>a.t.localeCompare(b.t),()=>a.ca-b.ca,()=>a.pa-b.pa,()=>(parseInt(a.v.replace(/[^\d]/g,''))||0)-(parseInt(b.v.replace(/[^\d]/g,''))||0)];
+const r=v[col]?v[col]():0;return d==='a'?r:-r});
+r()}
 
-    const caClass = p.ca >= 170 ? 'ca-high' : p.ca >= 150 ? 'ca-mid' : 'ca-low';
-
-    return `<tr>
-      <td style="color:#484f58;font-weight:600;">${num}</td>
-      <td><strong>${p.n}</strong></td>
-      <td>${p.a}</td>
-      <td><span class="pos-badge ${pc}">${p.p}</span></td>
-      <td>${p.c}</td>
-      <td>${flag} ${p.na}</td>
-      <td><span class="${caClass}">${p.ca}</span> <span class="ca-bar" style="width:${caPct}px"></span></td>
-      <td><span style="color:#3fb950;font-weight:700">${p.pa}</span> <span class="pa-bar" style="width:${paPct}px"></span></td>
-      <td class="value">${p.v}</td>
-      <td>${tags}</td>
-    </tr>`;
-  }).join('');
-  renderPagination();
-}
-
-function renderPagination() {
-  const totalPages = Math.ceil(filteredPlayers.length / PER_PAGE);
-  const el = document.getElementById('pagination');
-  if (totalPages <= 1) { el.innerHTML = ''; return; }
-  el.innerHTML = `
-    <button onclick="goPage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>◀</button>
-    <span class="page-info">${currentPage} / ${totalPages}</span>
-    <button onclick="goPage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>▶</button>`;
-}
-
-function goPage(n) {
-  currentPage = Math.max(1, Math.min(n, Math.ceil(filteredPlayers.length / PER_PAGE)));
-  renderTable();
-  document.querySelector('.table-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function resetFilters() {
-  document.getElementById('searchInput').value = '';
-  document.getElementById('posFilter').value = '';
-  document.getElementById('catFilter').value = '';
-  document.getElementById('ageFilter').value = '';
-  filterTable();
-}
-
-let sortDir = {};
-function sortTable(col) {
-  const dir = sortDir[col] === 'asc' ? 'desc' : 'asc';
-  sortDir[col] = dir;
-  filteredPlayers.sort((a, b) => {
-    const vals = [
-      ()=>0,
-      ()=>a.n.localeCompare(b.n),
-      ()=>a.a - b.a,
-      ()=>(POS_ORDER[getPosGroup(a.p)]||99) - (POS_ORDER[getPosGroup(b.p)]||99),
-      ()=>a.c.localeCompare(b.c),
-      ()=>a.na.localeCompare(b.na),
-      ()=>a.ca - b.ca,
-      ()=>a.pa - b.pa,
-      ()=>(parseInt(a.v.replace(/[^\d]/g,''))||0) - (parseInt(b.v.replace(/[^\d]/g,''))||0)
-    ];
-    const v = vals[col] ? vals[col]() : 0;
-    return dir === 'asc' ? v : -v;
-  });
-  renderTable();
-}
-
-filterTable();
+f();
 </script>
 </body>
 </html>
